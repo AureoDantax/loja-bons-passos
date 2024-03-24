@@ -16,11 +16,11 @@ public class Produto {
     private String modeloProduto;
     private int tamanhoProduto;
     private int qtdProduto;
-
-    public Produto() {
-        
-    };
     
+    public Produto() {
+    
+    }
+
     public Produto(String nomeProduto, String departamentoProd, int qtdProduto) {
         this.nomeProduto = nomeProduto;
         this.qtdProduto = qtdProduto;
@@ -51,46 +51,32 @@ public class Produto {
         this.qtdProduto = qtdProduto;
     }
 
-    /**
-     * @return the marcaProduto
-     */
     public String getMarcaProduto() {
         return marcaProduto;
     }
 
-    /**
-     * @param marcaProduto the marcaProduto to set
-     */
     public void setMarcaProduto(String marcaProduto) {
         this.marcaProduto = marcaProduto;
     }
 
-    /**
-     * @return the modeloProduto
-     */
     public String getModeloProduto() {
         return modeloProduto;
     }
 
-    /**
-     * @param modeloProduto the modeloProduto to set
-     */
     public void setModeloProduto(String modeloProduto) {
         this.modeloProduto = modeloProduto;
     }
 
-    /**
-     * @return the tamanhoProduto
-     */
     public int getTamanhoProduto() {
         return tamanhoProduto;
     }
 
-    /**
-     * @param tamanhoProduto the tamanhoProduto to set
-     */
     public void setTamanhoProduto(int tamanhoProduto) {
         this.tamanhoProduto = tamanhoProduto;
+    }
+
+    public void setProduto(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
