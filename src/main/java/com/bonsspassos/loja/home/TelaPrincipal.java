@@ -5,6 +5,7 @@
 package com.bonsspassos.loja.home;
 
 import com.bonsspassos.loja.home.cadastro.CadastroCliente;
+import com.bonsspassos.loja.home.cadastro.CadastroProduto;
 
 /**
  *
@@ -32,8 +33,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        cadastroCalcados = new javax.swing.JMenuItem();
+        cadastroClientes = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
@@ -60,25 +61,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(204, 255, 255))); // NOI18N
         jMenu1.setText("Cadastro");
 
-        jMenuItem1.setText("Calçados");
-        jMenuItem1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        cadastroCalcados.setText("Calçados");
+        cadastroCalcados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cadastroCalcados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                cadastroCalcadosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(cadastroCalcados);
 
-        jMenuItem2.setBackground(new java.awt.Color(51, 153, 255));
-        jMenuItem2.setText("Clientes");
-        jMenuItem2.setToolTipText("Cadastro de clientes");
-        jMenuItem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        cadastroClientes.setBackground(new java.awt.Color(51, 153, 255));
+        cadastroClientes.setText("Clientes");
+        cadastroClientes.setToolTipText("Cadastro de clientes");
+        cadastroClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cadastroClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                cadastroClientesActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(cadastroClientes);
 
         jMenuBar1.add(jMenu1);
 
@@ -111,14 +112,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void cadastroCalcadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroCalcadosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        CadastroProduto telaCadastroProduto = new CadastroProduto();
+        telaCadastroProduto.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_cadastroCalcadosActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void cadastroClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroClientesActionPerformed
       CadastroCliente telaCadastro = new CadastroCliente();
       telaCadastro.setVisible(rootPaneCheckingEnabled);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_cadastroClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,12 +159,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem cadastroCalcados;
+    private javax.swing.JMenuItem cadastroClientes;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
