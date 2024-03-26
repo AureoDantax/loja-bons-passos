@@ -12,6 +12,7 @@ import java.time.LocalDate;
  */
 public class Cliente {
 
+    private int id;
     private String nome;
     private String cpf;
     private String email;
@@ -19,11 +20,12 @@ public class Cliente {
     private LocalDate dataNascimento;
     private String sexo;
     private String estadooCivil;
-    
+    private String endereco;
     
     public Cliente(){};
 
-    public Cliente(String nome, String cpf, String email, String telefone, LocalDate dataNascimento, String sexo, String estadooCivil) {
+    public Cliente(int id,String nome, String cpf, String email, String telefone, LocalDate dataNascimento, String sexo, String estadooCivil,String endereco) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
@@ -31,6 +33,15 @@ public class Cliente {
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
         this.estadooCivil = estadooCivil;
+        this.endereco = endereco;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
     
     
@@ -90,6 +101,7 @@ public class Cliente {
     public void setEstadooCivil(String estadooCivil) {
         this.estadooCivil = estadooCivil;
     }
-    
 
+   
+    
 }
