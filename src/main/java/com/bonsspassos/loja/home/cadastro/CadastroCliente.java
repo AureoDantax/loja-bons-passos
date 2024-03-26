@@ -246,7 +246,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -277,16 +277,10 @@ public class CadastroCliente extends javax.swing.JFrame {
         cliente.setCpf(fieldCpf.getText());
         cliente.setEmail(fieldEmail.getText());
         cliente.setTelefone(fieldTelefone.getText());
-        if(LocalDate.parse(fieldNasc.getText(),formatter)){
-            
         cliente.setDataNascimento( LocalDate.parse(fieldNasc.getText(),formatter));
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "Data Inválida","Erro ao cadastrar",JOptionPane.ERROR_MESSAGE);
-        }
         cliente.setEndereco(fieldEndereco.getText());
         int op = JOptionPane.showConfirmDialog(rootPane, "Confirmar cadastro?");
         if (op ==0) {
-            JOptionPane.showMessageDialog(rootPane, cliente.getDataNascimento());
             JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso!","Cadastro concluido",JOptionPane.INFORMATION_MESSAGE);
            
         }
