@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.bonsspassos.loja.home;
+package com.bonsspassos.loja;
 
 import com.bonsspassos.loja.home.cadastro.CadastroCliente;
 import com.bonsspassos.loja.home.cadastro.CadastroProduto;
