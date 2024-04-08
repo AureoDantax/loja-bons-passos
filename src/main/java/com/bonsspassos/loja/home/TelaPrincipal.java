@@ -4,8 +4,10 @@
  */
 package com.bonsspassos.loja.home;
 
-import com.bonsspassos.loja.home.cadastro.CadastroCliente;
-import com.bonsspassos.loja.home.cadastro.CadastroProduto;
+import com.bonsspassos.loja.cadastro.CadastroCliente;
+import com.bonsspassos.loja.cadastro.CadastroCliente;
+import com.bonsspassos.loja.cadastro.CadastroProduto;
+import com.bonsspassos.loja.cadastro.CadastroProduto;
 
 /**
  *
