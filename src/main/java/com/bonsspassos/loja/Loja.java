@@ -4,6 +4,8 @@
  */
 package com.bonsspassos.loja;
 
+import com.bonsspassos.loja.home.TelaPrincipal;
+
 /**
  *
  * @author danta

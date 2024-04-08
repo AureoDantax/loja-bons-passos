@@ -1,4 +1,4 @@
-package com.bonsspassos.loja.home.cadastro;
+package com.bonsspassos.loja.cadastro;
 
 import com.bonsspassos.loja.model.Produto;
 import javax.swing.JOptionPane;
