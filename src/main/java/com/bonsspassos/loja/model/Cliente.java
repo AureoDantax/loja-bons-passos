@@ -5,6 +5,7 @@
 package com.bonsspassos.loja.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Cliente {
     private String telefone;
     private LocalDate dataNascimento;
     private String sexo;
-    private String estadooCivil;
+    private String estadoCivil;
     private String endereco;
     
     public Cliente(){};
@@ -32,8 +33,29 @@ public class Cliente {
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
-        this.estadooCivil = estadooCivil;
+        this.estadoCivil = estadooCivil;
         this.endereco = endereco;
+    }
+
+    @Override
+    public String toString() {
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return "Nome: " + nome 
+                + "\nCPF: " + cpf 
+                + "\nEmail: " + email
+                + "\nTelefone: " + telefone +
+                "\nData de Nascimento: " + dataNascimento.format(formatter)
+                + "\nSexo: " + sexo
+                + "\nEstado civil: " + estadoCivil 
+                + "\nEndereço: " + endereco;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEndereco() {
@@ -94,12 +116,12 @@ public class Cliente {
         this.sexo = sexo;
     }
 
-    public String getEstadooCivil() {
-        return estadooCivil;
+    public String getEstadoCivil() {
+        return estadoCivil;
     }
 
-    public void setEstadooCivil(String estadooCivil) {
-        this.estadooCivil = estadooCivil;
+    public void setEstadoCivil(String estadoCivil) {
+        this.estadoCivil = estadoCivil;
     }
 
    

@@ -5,9 +5,9 @@
 package com.bonsspassos.loja.home;
 
 import com.bonsspassos.loja.cadastro.CadastroCliente;
-import com.bonsspassos.loja.cadastro.CadastroCliente;
 import com.bonsspassos.loja.cadastro.CadastroProduto;
-import com.bonsspassos.loja.cadastro.CadastroProduto;
+import com.bonsspassos.loja.consulta.ConsultaCliente;
+import com.bonsspassos.loja.vendas.TelaVenda;
 
 /**
  *
@@ -34,11 +34,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuCadastro = new javax.swing.JMenu();
         cadastroCalcados = new javax.swing.JMenuItem();
         cadastroClientes = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        menuConsulta = new javax.swing.JMenu();
+        ItemConsultaClientes = new javax.swing.JMenuItem();
+        menuVendas = new javax.swing.JMenu();
+        menuItemVendas = new javax.swing.JMenuItem();
+        menuRelatorios = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bons Passos Calçados");
@@ -60,8 +64,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.black, null, null));
         jMenuBar1.setToolTipText("");
 
-        jMenu1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(204, 255, 255))); // NOI18N
-        jMenu1.setText("Cadastro");
+        menuCadastro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(204, 255, 255))); // NOI18N
+        menuCadastro.setText("Cadastro");
 
         cadastroCalcados.setText("Calçados");
         cadastroCalcados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -70,7 +74,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 cadastroCalcadosActionPerformed(evt);
             }
         });
-        jMenu1.add(cadastroCalcados);
+        menuCadastro.add(cadastroCalcados);
 
         cadastroClientes.setBackground(new java.awt.Color(51, 153, 255));
         cadastroClientes.setText("Clientes");
@@ -81,15 +85,50 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 cadastroClientesActionPerformed(evt);
             }
         });
-        jMenu1.add(cadastroClientes);
+        menuCadastro.add(cadastroClientes);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuCadastro);
 
-        jMenu2.setText("Vendas");
-        jMenuBar1.add(jMenu2);
+        menuConsulta.setText("Consultas");
 
-        jMenu3.setText("Relatorios");
-        jMenuBar1.add(jMenu3);
+        ItemConsultaClientes.setText("Clientes");
+        ItemConsultaClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemConsultaClientesActionPerformed(evt);
+            }
+        });
+        menuConsulta.add(ItemConsultaClientes);
+
+        jMenuBar1.add(menuConsulta);
+
+        menuVendas.setText("Vendas");
+        menuVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuVendasActionPerformed(evt);
+            }
+        });
+
+        menuItemVendas.setText("Realizar vendas");
+        menuItemVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemVendasActionPerformed(evt);
+            }
+        });
+        menuVendas.add(menuItemVendas);
+
+        jMenuBar1.add(menuVendas);
+
+        menuRelatorios.setText("Relatorios");
+
+        jMenuItem1.setText("Gerar Relatório");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(jMenuItem1);
+
+        jMenuBar1.add(menuRelatorios);
 
         setJMenuBar(jMenuBar1);
 
@@ -124,6 +163,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
       CadastroCliente telaCadastro = new CadastroCliente();
       telaCadastro.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_cadastroClientesActionPerformed
+
+    private void menuVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVendasActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_menuVendasActionPerformed
+
+    private void menuItemVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVendasActionPerformed
+        // TODO add your handling code here:
+         TelaVenda telaVenda = new TelaVenda();
+        telaVenda.setVisible(true);
+    }//GEN-LAST:event_menuItemVendasActionPerformed
+
+    private void ItemConsultaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemConsultaClientesActionPerformed
+        // TODO add your handling code here:
+        ConsultaCliente telaConsultaCliente = new ConsultaCliente();
+        telaConsultaCliente.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_ItemConsultaClientesActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,12 +221,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ItemConsultaClientes;
     private javax.swing.JMenuItem cadastroCalcados;
     private javax.swing.JMenuItem cadastroClientes;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenu menuCadastro;
+    private javax.swing.JMenu menuConsulta;
+    private javax.swing.JMenuItem menuItemVendas;
+    private javax.swing.JMenu menuRelatorios;
+    private javax.swing.JMenu menuVendas;
     // End of variables declaration//GEN-END:variables
 }
