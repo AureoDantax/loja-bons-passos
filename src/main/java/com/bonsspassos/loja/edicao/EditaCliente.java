@@ -2,14 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.bonsspassos.loja.cadastro;
+package com.bonsspassos.loja.edicao;
 
 import com.bonsspassos.loja.consulta.ConsultaCliente;
 import com.bonsspassos.loja.model.Cliente;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -19,9 +21,11 @@ import javax.swing.UIManager;
  *
  * @author dantas
  */
-public class CadastroCliente extends javax.swing.JFrame {
-    public static List<Cliente> clientes = new ArrayList<>();
-    public CadastroCliente() {
+public class EditaCliente extends javax.swing.JFrame {
+
+    List<Cliente> clientes = new ArrayList<>();
+
+    public EditaCliente() {
         UIManager.put("OptionPane.yesButtonText", "Sim");
         UIManager.put("OptionPane.noButtonText", "Não");
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
@@ -49,7 +53,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         fieldEmail = new javax.swing.JTextField();
         selectSexo = new javax.swing.JComboBox<>();
         selectEstadoCivil = new javax.swing.JComboBox<>();
-        btnCadastroCliente = new javax.swing.JButton();
+        btnEditaCliente = new javax.swing.JButton();
         lblPainelCadastro = new javax.swing.JLabel();
         fieldNasc = new javax.swing.JFormattedTextField();
         lblEndereco = new javax.swing.JLabel();
@@ -105,14 +109,14 @@ public class CadastroCliente extends javax.swing.JFrame {
             }
         });
 
-        btnCadastroCliente.setText("Cadastrar");
-        btnCadastroCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnEditaCliente.setText("Salvar");
+        btnEditaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastroClienteActionPerformed(evt);
+                btnEditaClienteActionPerformed(evt);
             }
         });
 
-        lblPainelCadastro.setText("CADASTRO DE CLIENTES");
+        lblPainelCadastro.setText("EDITAR CLIENTE");
 
         try {
             fieldNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -120,7 +124,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        lblEndereco.setText("Endereço");
+        lblEndereco.setText("Endereço:");
 
         fieldEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,9 +150,6 @@ public class CadastroCliente extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -180,24 +181,25 @@ public class CadastroCliente extends javax.swing.JFrame {
                                     .addComponent(fieldNasc)
                                     .addComponent(fieldTelefone)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblSexo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblEstadoCivil, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(btnCadastroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnEditaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblSexo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(lblEstadoCivil, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
                                         .addGap(42, 42, 42)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(selectSexo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(selectEstadoCivil, 0, 98, Short.MAX_VALUE))))
-                                .addGap(102, 102, 102)))))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(selectSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(selectEstadoCivil, 0, 99, Short.MAX_VALUE))))
+                                .addGap(102, 102, 102))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPainelCadastro)
+                            .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(49, 49, 49))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(lblPainelCadastro)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,9 +242,9 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(selectEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEstadoCivil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(31, 31, 31)
-                .addComponent(btnCadastroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addGap(38, 38, 38)
+                .addComponent(btnEditaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -252,12 +254,12 @@ public class CadastroCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -277,8 +279,8 @@ public class CadastroCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldEmailActionPerformed
 
-    private void btnCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroClienteActionPerformed
-        
+    private void btnEditaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditaClienteActionPerformed
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Cliente cliente = new Cliente();
         List<String> result = validaCamposCadastro(fieldNome, fieldEmail, fieldEndereco, fieldCpf, fieldTelefone, fieldNasc);
@@ -291,13 +293,13 @@ public class CadastroCliente extends javax.swing.JFrame {
             cliente.setEndereco(fieldEndereco.getText());
             cliente.setSexo(selectSexo.getSelectedItem().toString());
             cliente.setEstadoCivil(selectEstadoCivil.getSelectedItem().toString());
-            int op = JOptionPane.showConfirmDialog(rootPane,"Confirmar cadastro?\n\n" + cliente + "\n\n","CONFIRME OS DADOS DE CADASTRO",JOptionPane.YES_NO_CANCEL_OPTION);
+            int op = JOptionPane.showConfirmDialog(rootPane, "Confirmar cadastro?\n\n" + cliente + "\n\n", "CONFIRME OS DADOS DE CADASTRO", JOptionPane.YES_NO_CANCEL_OPTION);
             switch (op) {
                 case JOptionPane.YES_OPTION:
                     JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso!", "Cadastro concluido", JOptionPane.INFORMATION_MESSAGE);
-                    
+
                     clientes.add(cliente);
-                   ConsultaCliente.bufferCliente(clientes);
+                    ConsultaCliente.bufferCliente(clientes);
                     break;
                 case JOptionPane.NO_OPTION:
                     break;
@@ -315,7 +317,39 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         }
 
-    }//GEN-LAST:event_btnCadastroClienteActionPerformed
+    }//GEN-LAST:event_btnEditaClienteActionPerformed
+
+    public static void preencheCampos(List<Cliente> clientes,Object valor, String atributo) {
+
+        Map<Object, Cliente> mapCliente = new HashMap<>();
+        for (Cliente cliente : clientes) {
+            switch (atributo) {
+                case "ID":
+                    mapCliente.put(valor, cliente);
+                   break;
+                case "Nome":
+                    mapCliente.put(valor, cliente);
+                    break;
+                case "CPF":
+                    mapCliente.put(valor, cliente);
+                    break;
+                case "Email":
+                    mapCliente.put(valor, cliente);
+                   break;
+                
+            }
+           Cliente result = mapCliente.get(valor);
+            fieldNome.setText(result.getNome());
+            fieldCpf.setText(result.getCpf());
+            fieldEmail.setText(result.getEmail());
+            fieldNasc.setText(result.getDataNascimento().toString());
+            fieldTelefone.setText(result.getTelefone());
+            fieldEndereco.setText(result.getEndereco());
+            selectSexo.setSelectedItem(result.getSexo());
+            selectEstadoCivil.setSelectedItem(result.getEstadoCivil());
+        }
+        
+    }
 
     public List<String> validaCamposCadastro(JTextField fieldNome, JTextField fieldEmail,
             JTextField fieldEndereco,
@@ -331,7 +365,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         if (String.valueOf(fieldNome.getText()).isBlank() || fieldNome.getText() == null) {
             camposNulos.add("O campo nome deve ser preenchido!");
         }
-        if (fieldTelefone.getValue() == null) {
+        if (String.valueOf(fieldTelefone.getText()).isBlank() || fieldTelefone.getText() == null) {
             camposNulos.add("O Campo telefone deve ser preenchido!");
         }
         if (String.valueOf(fieldEndereco.getText()).isBlank() || fieldEndereco.getText() == null) {
@@ -371,32 +405,33 @@ public class CadastroCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroCliente().setVisible(true);
+                new EditaCliente().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastroCliente;
-    private javax.swing.JFormattedTextField fieldCpf;
-    private javax.swing.JTextField fieldEmail;
-    private javax.swing.JTextField fieldEndereco;
-    private javax.swing.JFormattedTextField fieldNasc;
-    private javax.swing.JTextField fieldNome;
-    private javax.swing.JFormattedTextField fieldTelefone;
+    private javax.swing.JButton btnEditaCliente;
+    private static javax.swing.JFormattedTextField fieldCpf;
+    private static javax.swing.JTextField fieldEmail;
+    private static javax.swing.JTextField fieldEndereco;
+    private static javax.swing.JFormattedTextField fieldNasc;
+    private static javax.swing.JTextField fieldNome;
+    private static javax.swing.JFormattedTextField fieldTelefone;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCpf;
     private javax.swing.JLabel lblEmail;
@@ -407,7 +442,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lblPainelCadastro;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelefone;
-    private javax.swing.JComboBox<String> selectEstadoCivil;
-    private javax.swing.JComboBox<String> selectSexo;
+    private static javax.swing.JComboBox<String> selectEstadoCivil;
+    private static javax.swing.JComboBox<String> selectSexo;
     // End of variables declaration//GEN-END:variables
 }
