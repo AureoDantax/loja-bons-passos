@@ -20,7 +20,10 @@ import javax.swing.UIManager;
  * @author dantas
  */
 public class CadastroCliente extends javax.swing.JFrame {
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static List<Cliente> clientes = new ArrayList<>();
+
     public CadastroCliente() {
         UIManager.put("OptionPane.yesButtonText", "Sim");
         UIManager.put("OptionPane.noButtonText", "Não");
@@ -278,26 +281,30 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldEmailActionPerformed
 
     private void btnCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroClienteActionPerformed
-        
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         Cliente cliente = new Cliente();
         List<String> result = validaCamposCadastro(fieldNome, fieldEmail, fieldEndereco, fieldCpf, fieldTelefone, fieldNasc);
-        if (result.size() == 0) {
+        try {
+            cliente.setDataNascimento(LocalDate.parse(fieldNasc.getText(), formatter));
+        } catch (Exception e) {
+            result.add("A data informada não é valida");
+        }
+        if (result.isEmpty()) {
             cliente.setNome(fieldNome.getText());
             cliente.setCpf(fieldCpf.getText());
             cliente.setEmail(fieldEmail.getText());
-            cliente.setDataNascimento(LocalDate.parse(fieldNasc.getText(), formatter));
+
             cliente.setTelefone(fieldTelefone.getText());
             cliente.setEndereco(fieldEndereco.getText());
             cliente.setSexo(selectSexo.getSelectedItem().toString());
             cliente.setEstadoCivil(selectEstadoCivil.getSelectedItem().toString());
-            int op = JOptionPane.showConfirmDialog(rootPane,"Confirmar cadastro?\n\n" + cliente + "\n\n","CONFIRME OS DADOS DE CADASTRO",JOptionPane.YES_NO_CANCEL_OPTION);
+            int op = JOptionPane.showConfirmDialog(rootPane, "Confirmar cadastro?\n\n" + cliente + "\n\n", "CONFIRME OS DADOS DE CADASTRO", JOptionPane.YES_NO_CANCEL_OPTION);
             switch (op) {
                 case JOptionPane.YES_OPTION:
                     JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso!", "Cadastro concluido", JOptionPane.INFORMATION_MESSAGE);
-                    
+
                     clientes.add(cliente);
-                   ConsultaCliente.bufferCliente(clientes);
+                    ConsultaCliente.bufferCliente(clientes);
                     break;
                 case JOptionPane.NO_OPTION:
                     break;
@@ -317,7 +324,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCadastroClienteActionPerformed
 
-    public List<String> validaCamposCadastro(JTextField fieldNome, JTextField fieldEmail,
+    public static List<String> validaCamposCadastro(JTextField fieldNome, JTextField fieldEmail,
             JTextField fieldEndereco,
             JFormattedTextField fieldCPF,
             JFormattedTextField fieldTelefone,
