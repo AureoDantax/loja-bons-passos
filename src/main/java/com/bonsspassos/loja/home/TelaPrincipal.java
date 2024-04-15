@@ -7,6 +7,8 @@ package com.bonsspassos.loja.home;
 import com.bonsspassos.loja.cadastro.CadastroCliente;
 import com.bonsspassos.loja.cadastro.CadastroProduto;
 import com.bonsspassos.loja.consulta.ConsultaCliente;
+import com.bonsspassos.loja.consulta.ConsultaProduto;
+import com.bonsspassos.loja.relatorios.TelaRelatorio;
 import com.bonsspassos.loja.vendas.TelaVenda;
 
 /**
@@ -38,6 +40,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         cadastroCalcados = new javax.swing.JMenuItem();
         cadastroClientes = new javax.swing.JMenuItem();
         menuConsulta = new javax.swing.JMenu();
+        ItemConsultaProdutos = new javax.swing.JMenuItem();
         ItemConsultaClientes = new javax.swing.JMenuItem();
         menuVendas = new javax.swing.JMenu();
         menuItemVendas = new javax.swing.JMenuItem();
@@ -90,6 +93,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(menuCadastro);
 
         menuConsulta.setText("Consultas");
+
+        ItemConsultaProdutos.setText("Produtos");
+        ItemConsultaProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemConsultaProdutosActionPerformed(evt);
+            }
+        });
+        menuConsulta.add(ItemConsultaProdutos);
 
         ItemConsultaClientes.setText("Clientes");
         ItemConsultaClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +194,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        TelaRelatorio telaRelatorio = new TelaRelatorio();
+        telaRelatorio.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void ItemConsultaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemConsultaProdutosActionPerformed
+        ConsultaProduto telaConsultaProduto = new ConsultaProduto();
+        telaConsultaProduto.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_ItemConsultaProdutosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,6 +229,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -222,6 +241,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ItemConsultaClientes;
+    private javax.swing.JMenuItem ItemConsultaProdutos;
     private javax.swing.JMenuItem cadastroCalcados;
     private javax.swing.JMenuItem cadastroClientes;
     private javax.swing.JMenuBar jMenuBar1;

@@ -38,12 +38,12 @@ public class ConsultaCliente extends javax.swing.JFrame {
         lblTipoBusca = new javax.swing.JLabel();
         selectTipoBusca = new javax.swing.JComboBox<>();
         lblBusca = new javax.swing.JLabel();
-        fieldBuscaPorNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableConsultaCliente = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
         btneditaCliente = new javax.swing.JButton();
+        fieldBuscaPorNome = new javax.swing.JTextField();
 
         setTitle("CONSULTA CLIENTES");
 
@@ -62,13 +62,6 @@ public class ConsultaCliente extends javax.swing.JFrame {
 
         lblBusca.setLabelFor(fieldBuscaPorNome);
         lblBusca.setText("Digite o nome do cliente:");
-
-        fieldBuscaPorNome.setDragEnabled(true);
-        fieldBuscaPorNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldBuscaPorNomeActionPerformed(evt);
-            }
-        });
 
         tableConsultaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -121,8 +114,8 @@ public class ConsultaCliente extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(lblBusca)
                                 .addGap(18, 18, 18)
-                                .addComponent(fieldBuscaPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fieldBuscaPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
                                 .addComponent(btnBuscar))
                             .addGroup(telaConsultaClientesLayout.createSequentialGroup()
                                 .addGap(107, 107, 107)
@@ -148,8 +141,8 @@ public class ConsultaCliente extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(telaConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBusca)
-                    .addComponent(fieldBuscaPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscar)
+                    .addComponent(fieldBuscaPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -164,7 +157,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(telaConsultaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

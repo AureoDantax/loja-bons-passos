@@ -10,21 +10,71 @@ package com.bonsspassos.loja.model;
  */
 public class Produto {
 
+    private int id;
     private String nomeProduto;
     private String departamentoProd;
     private String marcaProduto;
     private String modeloProduto;
-    private int tamanhoProduto;
-    private int qtdProduto;
-    
+    private Integer tamanhoProduto;
+    private Integer qtdProduto;
+    private String valorProduto;
+
     public Produto() {
-    
     }
 
-    public Produto(String nomeProduto, String departamentoProd, int qtdProduto) {
+    ;
+
+    public Produto(String nomeProduto, String departamentoProd, String marcaProduto, String modeloProduto, int tamanhoProduto, int qtdProduto, String valorProduto) {
+        this.id = id;
         this.nomeProduto = nomeProduto;
-        this.qtdProduto = qtdProduto;
         this.departamentoProd = departamentoProd;
+        this.marcaProduto = marcaProduto;
+        this.modeloProduto = modeloProduto;
+        this.tamanhoProduto = tamanhoProduto;
+        this.qtdProduto = qtdProduto;
+        this.valorProduto = valorProduto;
+    }
+
+    @Override
+    public String toString() {
+        return  "\nProduto: "
+                + nomeProduto
+                + "\nDepartamento: "
+                + departamentoProd
+                + "\nMarca: "
+                + marcaProduto
+                + "\nModelo: "
+                + modeloProduto
+                + "\nTamanho: " 
+                + tamanhoProduto 
+                + "\nQuantidade: " 
+                + qtdProduto 
+                + "\nValor: " 
+                + valorProduto;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDepartamentoProd() {
+        return departamentoProd;
+    }
+
+    public void setDepartamentoProd(String departamentoProd) {
+        this.departamentoProd = departamentoProd;
+    }
+
+    public String getValorProduto() {
+        return valorProduto;
+    }
+
+    public void setValorProduto(String valorProduto) {
+        this.valorProduto = valorProduto;
     }
 
     public String getNomeProduto() {
@@ -34,19 +84,11 @@ public class Produto {
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
-    
-    public String getDepartamento() {
-        return departamentoProd;
-    }
-    
-    public void setDepartamento(String departamentoProd) {
-        this.departamentoProd = departamentoProd;
-    }
-    
+
     public int getQtdProduto() {
         return qtdProduto;
     }
-    
+
     public void setQtdProduto(int qtdProduto) {
         this.qtdProduto = qtdProduto;
     }
@@ -74,10 +116,4 @@ public class Produto {
     public void setTamanhoProduto(int tamanhoProduto) {
         this.tamanhoProduto = tamanhoProduto;
     }
-
-    public void setProduto(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    
 }
