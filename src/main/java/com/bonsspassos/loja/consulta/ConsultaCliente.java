@@ -8,6 +8,8 @@ import com.bonsspassos.loja.cadastro.CadastroCliente;
 import com.bonsspassos.loja.edicao.EditaCliente;
 import com.bonsspassos.loja.model.Cliente;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -40,10 +42,10 @@ public class ConsultaCliente extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableConsultaCliente = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
         btneditaCliente = new javax.swing.JButton();
 
-        setTitle("LOJA BONS PASSOS - CONSULTA CLIENTES");
+        setTitle("CONSULTA CLIENTES");
 
         lblConsultaClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblConsultaClientes.setText("CONSULTA DE CLIENTES");
@@ -88,7 +90,12 @@ public class ConsultaCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("REMOVER");
+        btnRemover.setText("REMOVER");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         btneditaCliente.setText("EDITAR");
         btneditaCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +133,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btneditaCliente)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
+                        .addComponent(btnRemover)))
                 .addContainerGap())
         );
         telaConsultaClientesLayout.setVerticalGroup(
@@ -147,7 +154,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(telaConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnRemover)
                     .addComponent(btneditaCliente))
                 .addContainerGap(174, Short.MAX_VALUE))
         );
@@ -183,6 +190,83 @@ public class ConsultaCliente extends javax.swing.JFrame {
             lblBusca.setText("Digite o CPF do cliente");
         }
     }//GEN-LAST:event_selectTipoBuscaActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btneditaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditaClienteActionPerformed
+        // TODO add your handling code here:
+        int row = tableConsultaCliente.getSelectedRow();
+        int colunm = tableConsultaCliente.getSelectedColumn();
+        String nomeColumn = tableConsultaCliente.getColumnName(colunm);
+        Object valorBusca = tableConsultaCliente.getValueAt(row, colunm);
+
+        EditaCliente telaEditaCliente = new EditaCliente();
+        telaEditaCliente.setVisible(rootPaneCheckingEnabled);
+        telaEditaCliente.preencheCampos(CadastroCliente.clientes, valorBusca, nomeColumn);
+        ((DefaultTableModel) tableConsultaCliente.getModel()).removeRow(row);
+        ((DefaultTableModel) tableConsultaCliente.getModel()).addRow(new String[]{
+            "", "", "", ""
+        });
+    }//GEN-LAST:event_btneditaClienteActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        // TODO add your handling code here:
+        int row = tableConsultaCliente.getSelectedRow();
+        if (row != -1) {
+
+            int op = JOptionPane.showConfirmDialog(rootPane, "Confirmar remoção?", "REMOVER CLIENTE", JOptionPane.YES_NO_OPTION);
+            if (op == 0) {
+                ((DefaultTableModel) tableConsultaCliente.getModel()).removeRow(row);
+                ((DefaultTableModel) tableConsultaCliente.getModel()).addRow(new String[]{"", "", "", ""
+                });
+              JOptionPane.showMessageDialog(rootPane, "Cliente removido com sucesso!", "CLIENTE REMOVIDO", JOptionPane.INFORMATION_MESSAGE);  
+            }
+        }
+
+
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    public static void bufferCliente(List<Cliente> clientes) {
+        if (tableConsultaCliente.isVisible() && clientes.size() > 0) {
+            addClienteTable(clientes);
+        }
+    }
+
+    ;
+    public static void addClienteTable(List<Cliente> clientes) {
+        int pos = 0;
+        int id = 1;
+
+        for (Cliente cliente : clientes) {
+
+            if (tableConsultaCliente.getValueAt(pos, pos) == null) {
+                tableConsultaCliente.setValueAt(id, pos, 0);
+                tableConsultaCliente.setValueAt(cliente.getNome(), pos, 1);
+                tableConsultaCliente.setValueAt(cliente.getCpf(), pos, 2);
+                tableConsultaCliente.setValueAt(cliente.getEmail(), pos, 3);
+
+            } else {
+
+                for (pos = 1; pos <= tableConsultaCliente.getRowCount(); pos++) {
+                    id++;
+                    if (tableConsultaCliente.getValueAt(pos, 0) == null) {
+                        tableConsultaCliente.setValueAt(id, pos, 0);
+                        tableConsultaCliente.setValueAt(cliente.getNome(), pos, 1);
+                        tableConsultaCliente.setValueAt(cliente.getCpf(), pos, 2);
+                        tableConsultaCliente.setValueAt(cliente.getEmail(), pos, 3);
+                        break;
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
+
 
     /**
      * @param args the command line arguments
@@ -221,9 +305,9 @@ public class ConsultaCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnRemover;
     private javax.swing.JButton btneditaCliente;
     private javax.swing.JTextField fieldBuscaPorNome;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBusca;
     private javax.swing.JLabel lblConsultaClientes;

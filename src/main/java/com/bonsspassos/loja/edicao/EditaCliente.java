@@ -4,6 +4,7 @@
  */
 package com.bonsspassos.loja.edicao;
 
+import com.bonsspassos.loja.cadastro.CadastroCliente;
 import com.bonsspassos.loja.consulta.ConsultaCliente;
 import com.bonsspassos.loja.model.Cliente;
 import java.time.LocalDate;
@@ -12,9 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 /**
@@ -25,10 +24,16 @@ public class EditaCliente extends javax.swing.JFrame {
 
     List<Cliente> clientes = new ArrayList<>();
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     public EditaCliente() {
-        UIManager.put("OptionPane.yesButtonText", "Sim");
-        UIManager.put("OptionPane.noButtonText", "Não");
-        UIManager.put("OptionPane.cancelButtonText", "Cancelar");
+
+        UIManager.put(
+                "OptionPane.yesButtonText", "Sim");
+        UIManager.put(
+                "OptionPane.noButtonText", "Não");
+        UIManager.put(
+                "OptionPane.cancelButtonText", "Cancelar");
         initComponents();
     }
 
@@ -61,7 +66,7 @@ public class EditaCliente extends javax.swing.JFrame {
         fieldCpf = new javax.swing.JFormattedTextField();
         fieldTelefone = new javax.swing.JFormattedTextField();
 
-        setTitle("CADASTRO - CLIENTES");
+        setTitle("BONS PASSOS - EDIÇÃO CLIENTES");
         setResizable(false);
 
         lblNome.setText("Nome:");
@@ -281,9 +286,13 @@ public class EditaCliente extends javax.swing.JFrame {
 
     private void btnEditaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditaClienteActionPerformed
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Cliente cliente = new Cliente();
-        List<String> result = validaCamposCadastro(fieldNome, fieldEmail, fieldEndereco, fieldCpf, fieldTelefone, fieldNasc);
+        List<String> result = CadastroCliente.validaCamposCadastro(fieldNome, fieldEmail, fieldEndereco, fieldCpf, fieldTelefone, fieldNasc);
+        try {
+            cliente.setDataNascimento(LocalDate.parse(fieldNasc.getText(), formatter));
+        } catch (Exception e) {
+            result.add("A data informada não é valida");
+        }
         if (result.size() == 0) {
             cliente.setNome(fieldNome.getText());
             cliente.setCpf(fieldCpf.getText());
@@ -293,13 +302,13 @@ public class EditaCliente extends javax.swing.JFrame {
             cliente.setEndereco(fieldEndereco.getText());
             cliente.setSexo(selectSexo.getSelectedItem().toString());
             cliente.setEstadoCivil(selectEstadoCivil.getSelectedItem().toString());
-            int op = JOptionPane.showConfirmDialog(rootPane, "Confirmar cadastro?\n\n" + cliente + "\n\n", "CONFIRME OS DADOS DE CADASTRO", JOptionPane.YES_NO_CANCEL_OPTION);
+            int op = JOptionPane.showConfirmDialog(rootPane, "Confirmar edição?\n\n" + cliente + "\n\n", "CONFIRME OS DADOS DO CLIENTE", JOptionPane.YES_NO_CANCEL_OPTION);
             switch (op) {
                 case JOptionPane.YES_OPTION:
-                    JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso!", "Cadastro concluido", JOptionPane.INFORMATION_MESSAGE);
-
+                    JOptionPane.showMessageDialog(rootPane, "Edição Realizada com sucesso!", "Edição concluida", JOptionPane.INFORMATION_MESSAGE);
                     clientes.add(cliente);
                     ConsultaCliente.bufferCliente(clientes);
+                    this.setVisible(false);
                     break;
                 case JOptionPane.NO_OPTION:
                     break;
@@ -319,14 +328,14 @@ public class EditaCliente extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEditaClienteActionPerformed
 
-    public static void preencheCampos(List<Cliente> clientes,Object valor, String atributo) {
+    public static void preencheCampos(List<Cliente> clientes, Object valor, String atributo) {
 
         Map<Object, Cliente> mapCliente = new HashMap<>();
         for (Cliente cliente : clientes) {
             switch (atributo) {
                 case "ID":
                     mapCliente.put(valor, cliente);
-                   break;
+                    break;
                 case "Nome":
                     mapCliente.put(valor, cliente);
                     break;
@@ -335,51 +344,22 @@ public class EditaCliente extends javax.swing.JFrame {
                     break;
                 case "Email":
                     mapCliente.put(valor, cliente);
-                   break;
-                
+                    break;
+
             }
-           Cliente result = mapCliente.get(valor);
+            Cliente result = mapCliente.get(valor);
             fieldNome.setText(result.getNome());
-            fieldCpf.setText(result.getCpf());
+            fieldCpf.setText(result.getCpf().toString());
             fieldEmail.setText(result.getEmail());
-            fieldNasc.setText(result.getDataNascimento().toString());
+            fieldNasc.setText(result.getDataNascimento().format(formatter));
             fieldTelefone.setText(result.getTelefone());
             fieldEndereco.setText(result.getEndereco());
             selectSexo.setSelectedItem(result.getSexo());
             selectEstadoCivil.setSelectedItem(result.getEstadoCivil());
         }
-        
+
     }
 
-    public List<String> validaCamposCadastro(JTextField fieldNome, JTextField fieldEmail,
-            JTextField fieldEndereco,
-            JFormattedTextField fieldCPF,
-            JFormattedTextField fieldTelefone,
-            JFormattedTextField fieldDataNasc
-    ) {
-        List<String> camposNulos = new ArrayList<String>();
-
-        if (fieldCPF.getValue() == null) {
-            camposNulos.add("O campo CPF deve ser preenchido!");
-        }
-        if (String.valueOf(fieldNome.getText()).isBlank() || fieldNome.getText() == null) {
-            camposNulos.add("O campo nome deve ser preenchido!");
-        }
-        if (String.valueOf(fieldTelefone.getText()).isBlank() || fieldTelefone.getText() == null) {
-            camposNulos.add("O Campo telefone deve ser preenchido!");
-        }
-        if (String.valueOf(fieldEndereco.getText()).isBlank() || fieldEndereco.getText() == null) {
-            camposNulos.add("O campo endereço deve ser preenchido!");
-        }
-        if (String.valueOf(fieldEmail.getText()).isBlank() || fieldEmail.getText() == null) {
-            camposNulos.add("O cammpo email deve ser preencchido!");
-        }
-        if (fieldDataNasc.getValue() == null) {
-            camposNulos.add("O campo data de nascimento deve ser preenchido!");
-        }
-
-        return camposNulos;
-    }
     private void fieldEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldEnderecoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldEnderecoActionPerformed
@@ -402,16 +382,24 @@ public class EditaCliente extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditaCliente.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditaCliente.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditaCliente.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditaCliente.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
