@@ -184,6 +184,7 @@ public class CadastroProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(btnCadastroProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
