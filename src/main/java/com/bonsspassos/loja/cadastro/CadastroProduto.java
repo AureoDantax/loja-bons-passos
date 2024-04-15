@@ -1,15 +1,24 @@
 package com.bonsspassos.loja.cadastro;
 
+import com.bonsspassos.loja.consulta.ConsultaProduto;
 import com.bonsspassos.loja.model.Produto;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 /**
  *
  * @author RSG
  */
 public class CadastroProduto extends javax.swing.JFrame {
-
+    public static List<Produto> produtos = new ArrayList<>();
     public CadastroProduto() {
+        UIManager.put("OptionPane.yesButtonText", "Sim");
+        UIManager.put("OptionPane.noButtonText", "Não");
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar");
         initComponents();
     }
 
@@ -36,7 +45,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         valorProduto = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LOJA BONS PASSOS - CADASTRO DE PRODUTOS");
         setResizable(false);
 
         jLabel1.setText("Produto:");
@@ -204,42 +213,55 @@ public class CadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_nomeProdutoActionPerformed
 
     private void btnCadastroProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroProdutoActionPerformed
-        
         Produto produto = new Produto();
-        
-        String nome = nomeProduto.getText();
-        String marca = (String) marcaProduto.getSelectedItem();
-        String departamento = (String) departamentoProd.getSelectedItem();
-        String modelo = (String) modeloProduto.getSelectedItem();
-        int tamanho = Integer.parseInt((String) tamanhoProduto.getSelectedItem());
-        int quantidade = (Integer) qtdProduto.getValue();
-        String valor = valorProduto.getText();
-
-        int op = JOptionPane.showConfirmDialog(rootPane,
-                "Produto: " + nome
-                + "\nDepartamento: " + departamento
-                + "\nMarca: " + marca
-                + "\nModelo: " + modelo
-                + "\nTamanho: " + tamanho
-                + "\nQuantidade: " + quantidade
-                + "\nValor: "  + valor
-                + "\nConfirmar cadastro deste produto?");
-        
-        if (op == 0) {
+        List<String> result = validaCamposProduto(nomeProduto, valorProduto);
+        if (result.size() == 0) {
             produto.setNomeProduto(nomeProduto.getText());
-            produto.setMarcaProduto((String) marcaProduto.getSelectedItem());
-            produto.setDepartamentoProd((String) departamentoProd.getSelectedItem());
-            produto.setModeloProduto((String) modeloProduto.getSelectedItem());
-            produto.setTamanhoProduto(Integer.parseInt((String) tamanhoProduto.getSelectedItem()));
-            produto.setQtdProduto((Integer) qtdProduto.getValue());
+            produto.setMarcaProduto(marcaProduto.getSelectedItem().toString());
+            produto.setDepartamentoProd(departamentoProd.getSelectedItem().toString());
+            produto.setModeloProduto(modeloProduto.getSelectedItem().toString());
+            produto.setTamanhoProduto(Integer.parseInt(tamanhoProduto.getSelectedItem().toString()));
+            produto.setQtdProduto(Integer.parseInt(qtdProduto.getValue().toString()));
             produto.setValorProduto(valorProduto.getText());
+            int op = JOptionPane.showConfirmDialog(rootPane,"Confirmar cadastro?\n\n" + produto + "\n\n","CONFIRME OS DADOS DE CADASTRO",JOptionPane.YES_NO_CANCEL_OPTION);
+            switch (op) {
+                case JOptionPane.YES_OPTION:
+                    JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso!", "Cadastro concluido", JOptionPane.INFORMATION_MESSAGE);
+                    produtos.add(produto);
+                    ConsultaProduto.bufferProduto(produtos);
+                    break;
+                case JOptionPane.NO_OPTION:
+                    break;
+                case JOptionPane.CANCEL_OPTION:
+                    break;
 
-            JOptionPane.showMessageDialog(rootPane, "Cadastro efetuado!");
-            this.setVisible(false);
+            }
+        } else {
+            StringBuilder erros = new StringBuilder();
+            for (String erro : result) {
+                erros.append(erro).append("\n");
+            }
+            JOptionPane.showMessageDialog(rootPane, erros.toString(), "Erro ao realizar cadastro", JOptionPane.ERROR_MESSAGE);
+
         }
             
     }//GEN-LAST:event_btnCadastroProdutoActionPerformed
 
+    public List<String> validaCamposProduto(
+            JTextField nomeProduto, 
+            JTextField valorProduto
+    ) {
+        List<String> camposNulos = new ArrayList<String>();
+
+        if (String.valueOf(nomeProduto.getText()).isBlank() || nomeProduto.getText() == null) {
+            camposNulos.add("O campo produto deve ser preenchido!");
+        }
+        if (valorProduto.getText() == null) {
+            camposNulos.add("O campo CPF deve ser preenchido!");
+        }
+        return camposNulos;
+    }
+    
     private void marcaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaProdutoActionPerformed
 
     }//GEN-LAST:event_marcaProdutoActionPerformed

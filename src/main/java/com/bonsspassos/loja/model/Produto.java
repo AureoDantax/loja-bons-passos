@@ -10,19 +10,22 @@ package com.bonsspassos.loja.model;
  */
 public class Produto {
 
+    private int id;
     private String nomeProduto;
     private String departamentoProd;
     private String marcaProduto;
     private String modeloProduto;
-    private int tamanhoProduto;
-    private int qtdProduto;
+    private Integer tamanhoProduto;
+    private Integer qtdProduto;
     private String valorProduto;
-    
+
     public Produto() {
-    
     }
 
+    ;
+
     public Produto(String nomeProduto, String departamentoProd, String marcaProduto, String modeloProduto, int tamanhoProduto, int qtdProduto, String valorProduto) {
+        this.id = id;
         this.nomeProduto = nomeProduto;
         this.departamentoProd = departamentoProd;
         this.marcaProduto = marcaProduto;
@@ -30,6 +33,32 @@ public class Produto {
         this.tamanhoProduto = tamanhoProduto;
         this.qtdProduto = qtdProduto;
         this.valorProduto = valorProduto;
+    }
+
+    @Override
+    public String toString() {
+        return  "\nProduto: "
+                + nomeProduto
+                + "\nDepartamento: "
+                + departamentoProd
+                + "\nMarca: "
+                + marcaProduto
+                + "\nModelo: "
+                + modeloProduto
+                + "\nTamanho: " 
+                + tamanhoProduto 
+                + "\nQuantidade: " 
+                + qtdProduto 
+                + "\nValor: " 
+                + valorProduto;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDepartamentoProd() {
@@ -55,11 +84,11 @@ public class Produto {
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
-    
+
     public int getQtdProduto() {
         return qtdProduto;
     }
-    
+
     public void setQtdProduto(int qtdProduto) {
         this.qtdProduto = qtdProduto;
     }
