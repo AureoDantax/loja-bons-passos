@@ -166,6 +166,7 @@ public class ConsultaProduto extends javax.swing.JFrame {
 
     private void lblbuscarIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblbuscarIDActionPerformed
         // TODO add your handling code here:
+         JOptionPane.showMessageDialog(rootPane, "O campo não pode estar vazio", "Erro na pesquisa", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_lblbuscarIDActionPerformed
 
     private void btneditaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditaProdutoActionPerformed

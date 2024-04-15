@@ -4,7 +4,6 @@ import com.bonsspassos.loja.consulta.ConsultaProduto;
 import com.bonsspassos.loja.model.Produto;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -247,17 +246,17 @@ public class CadastroProduto extends javax.swing.JFrame {
             
     }//GEN-LAST:event_btnCadastroProdutoActionPerformed
 
-    public List<String> validaCamposProduto(
+    public static List<String> validaCamposProduto(
             JTextField nomeProduto, 
             JTextField valorProduto
     ) {
         List<String> camposNulos = new ArrayList<String>();
 
-        if (String.valueOf(nomeProduto.getText()).isBlank() || nomeProduto.getText() == null) {
+        if (nomeProduto.getText().isBlank()) {
             camposNulos.add("O campo produto deve ser preenchido!");
         }
-        if (valorProduto.getText() == null) {
-            camposNulos.add("O campo CPF deve ser preenchido!");
+        if (valorProduto.getText().isBlank()) {
+            camposNulos.add("O campo valor deve ser preenchido!");
         }
         return camposNulos;
     }

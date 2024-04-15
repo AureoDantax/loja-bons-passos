@@ -4,6 +4,7 @@
  */
 package com.bonsspassos.loja.edicao;
 
+import com.bonsspassos.loja.cadastro.CadastroProduto;
 import com.bonsspassos.loja.consulta.ConsultaProduto;
 import com.bonsspassos.loja.model.Produto;
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 /**
@@ -224,7 +224,7 @@ public class EditaProduto extends javax.swing.JFrame {
 
     private void btnCadastroProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroProdutoActionPerformed
         Produto produto = new Produto();
-        List<String> result = validaCamposProduto(nomeProduto, valorProduto);
+        List<String> result = CadastroProduto.validaCamposProduto(nomeProduto, valorProduto);
 
         if (result.size() == 0) {
             produto.setNomeProduto(nomeProduto.getText());
@@ -294,20 +294,6 @@ public class EditaProduto extends javax.swing.JFrame {
 
     }
 
-    public List<String> validaCamposProduto(
-            JTextField nomeProduto,
-            JTextField valorProduto
-    ) {
-        List<String> camposNulos = new ArrayList<String>();
-
-        if (String.valueOf(nomeProduto.getText()).isBlank() || nomeProduto.getText() == null) {
-            camposNulos.add("O campo produto deve ser preenchido!");
-        }
-        if (valorProduto.getText() == null) {
-            camposNulos.add("O campo CPF deve ser preenchido!");
-        }
-        return camposNulos;
-    }
 
     private void tamanhoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tamanhoProdutoActionPerformed
 

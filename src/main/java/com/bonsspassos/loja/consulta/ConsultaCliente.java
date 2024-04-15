@@ -186,6 +186,9 @@ public class ConsultaCliente extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        if(fieldBuscaPorNome.getText().isBlank()){
+            JOptionPane.showMessageDialog(rootPane, "O campo não pode estar vazio", "Erro na pesquisa", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btneditaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditaClienteActionPerformed
