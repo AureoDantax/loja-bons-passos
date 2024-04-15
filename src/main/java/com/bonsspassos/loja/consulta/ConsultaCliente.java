@@ -52,6 +52,11 @@ public class ConsultaCliente extends javax.swing.JFrame {
         lblBusca.setText("Digite o nome do cliente:");
 
         fieldBuscaPorNome.setDragEnabled(true);
+        fieldBuscaPorNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldBuscaPorNomeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout telaConsultaClientesLayout = new javax.swing.GroupLayout(telaConsultaClientes);
         telaConsultaClientes.setLayout(telaConsultaClientesLayout);
@@ -119,6 +124,10 @@ public class ConsultaCliente extends javax.swing.JFrame {
             lblBusca.setText("Digite o CPF do cliente");
         }
     }//GEN-LAST:event_selectTipoBuscaActionPerformed
+
+    private void fieldBuscaPorNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldBuscaPorNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldBuscaPorNomeActionPerformed
 
     /**
      * @param args the command line arguments
