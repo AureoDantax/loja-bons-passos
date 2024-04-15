@@ -62,6 +62,11 @@ public class ConsultaCliente extends javax.swing.JFrame {
         lblBusca.setText("Digite o nome do cliente:");
 
         fieldBuscaPorNome.setDragEnabled(true);
+        fieldBuscaPorNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldBuscaPorNomeActionPerformed(evt);
+            }
+        });
 
         tableConsultaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -178,62 +183,6 @@ public class ConsultaCliente extends javax.swing.JFrame {
             lblBusca.setText("Digite o CPF do cliente");
         }
     }//GEN-LAST:event_selectTipoBuscaActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void btneditaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditaClienteActionPerformed
-        // TODO add your handling code here:
-       int row =tableConsultaCliente.getSelectedRow();
-       int colunm = tableConsultaCliente.getSelectedColumn();
-       String nomeColumn = tableConsultaCliente.getColumnName(colunm);
-       Object valorBusca = tableConsultaCliente.getValueAt(row, colunm);
-      
-       
-        EditaCliente telaEditaCliente = new EditaCliente();
-        telaEditaCliente.setVisible(rootPaneCheckingEnabled);
-        telaEditaCliente.preencheCampos(CadastroCliente.clientes,valorBusca,nomeColumn);
-        
-    }//GEN-LAST:event_btneditaClienteActionPerformed
-
-    public static void bufferCliente(List<Cliente> clientes) {
-        if (tableConsultaCliente.isVisible() && clientes.size() > 0) {
-            addClienteTable(clientes);
-        }
-    }
-
-    ;
-    public static void addClienteTable(List<Cliente> clientes) {
-        int pos = 0;
-        int id = 1;
-        for (Cliente cliente : clientes) {
-
-            if (tableConsultaCliente.getValueAt(pos, pos) == null) {
-                tableConsultaCliente.setValueAt(id, pos, 0);
-                tableConsultaCliente.setValueAt(cliente.getNome(), pos, 1);
-                tableConsultaCliente.setValueAt(cliente.getCpf(), pos, 2);
-                tableConsultaCliente.setValueAt(cliente.getEmail(), pos, 3);
-
-            } else {
-
-                for (pos = 1; pos <= tableConsultaCliente.getRowCount(); pos++) {
-                    id++;
-                    if (tableConsultaCliente.getValueAt(pos, 0) == null) {
-                        tableConsultaCliente.setValueAt(id, pos, 0);
-                        tableConsultaCliente.setValueAt(cliente.getNome(), pos, 1);
-                        tableConsultaCliente.setValueAt(cliente.getCpf(), pos, 2);
-                        tableConsultaCliente.setValueAt(cliente.getEmail(), pos, 3);
-                    }
-                   
-
-                }
-
-            }
-        }
-
-    }
-    
 
     /**
      * @param args the command line arguments
