@@ -64,6 +64,11 @@ public class ConsultaCliente extends javax.swing.JFrame {
         lblBusca.setText("Digite o nome do cliente:");
 
         fieldBuscaPorNome.setDragEnabled(true);
+        fieldBuscaPorNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldBuscaPorNomeActionPerformed(evt);
+            }
+        });
 
         tableConsultaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -260,6 +265,8 @@ public class ConsultaCliente extends javax.swing.JFrame {
         }
 
     }
+
+
 
     /**
      * @param args the command line arguments
