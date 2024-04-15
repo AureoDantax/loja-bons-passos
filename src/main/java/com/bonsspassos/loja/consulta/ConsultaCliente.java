@@ -4,6 +4,11 @@
  */
 package com.bonsspassos.loja.consulta;
 
+import com.bonsspassos.loja.cadastro.CadastroCliente;
+import com.bonsspassos.loja.edicao.EditaCliente;
+import com.bonsspassos.loja.model.Cliente;
+import java.util.List;
+
 /**
  *
  * @author danta
@@ -32,8 +37,13 @@ public class ConsultaCliente extends javax.swing.JFrame {
         selectTipoBusca = new javax.swing.JComboBox<>();
         lblBusca = new javax.swing.JLabel();
         fieldBuscaPorNome = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableConsultaCliente = new javax.swing.JTable();
+        btnBuscar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        btneditaCliente = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LOJA BONS PASSOS - CONSULTA CLIENTES");
 
         lblConsultaClientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblConsultaClientes.setText("CONSULTA DE CLIENTES");
@@ -58,6 +68,35 @@ public class ConsultaCliente extends javax.swing.JFrame {
             }
         });
 
+        tableConsultaCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "CPF", "Email"
+            }
+        ));
+        jScrollPane1.setViewportView(tableConsultaCliente);
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("REMOVER");
+
+        btneditaCliente.setText("EDITAR");
+        btneditaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditaClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout telaConsultaClientesLayout = new javax.swing.GroupLayout(telaConsultaClientes);
         telaConsultaClientes.setLayout(telaConsultaClientesLayout);
         telaConsultaClientesLayout.setHorizontalGroup(
@@ -65,19 +104,30 @@ public class ConsultaCliente extends javax.swing.JFrame {
             .addGroup(telaConsultaClientesLayout.createSequentialGroup()
                 .addGroup(telaConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(telaConsultaClientesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblTipoBusca)
+                        .addGroup(telaConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(telaConsultaClientesLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblTipoBusca)
+                                .addGap(18, 18, 18)
+                                .addComponent(selectTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(telaConsultaClientesLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblBusca)
+                                .addGap(18, 18, 18)
+                                .addComponent(fieldBuscaPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscar))
+                            .addGroup(telaConsultaClientesLayout.createSequentialGroup()
+                                .addGap(107, 107, 107)
+                                .addComponent(lblConsultaClientes)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telaConsultaClientesLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btneditaCliente)
                         .addGap(18, 18, 18)
-                        .addComponent(selectTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(telaConsultaClientesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblBusca)
-                        .addGap(18, 18, 18)
-                        .addComponent(fieldBuscaPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(telaConsultaClientesLayout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(lblConsultaClientes)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addComponent(jButton1)))
+                .addContainerGap())
         );
         telaConsultaClientesLayout.setVerticalGroup(
             telaConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,8 +141,15 @@ public class ConsultaCliente extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(telaConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBusca)
-                    .addComponent(fieldBuscaPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(267, Short.MAX_VALUE))
+                    .addComponent(fieldBuscaPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(telaConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btneditaCliente))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -100,9 +157,9 @@ public class ConsultaCliente extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(telaConsultaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,22 +169,20 @@ public class ConsultaCliente extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void selectTipoBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectTipoBuscaActionPerformed
         // TODO add your handling code here:
-        String[] opcoes = {"Nome","CPF"};
-        if(selectTipoBusca.getSelectedItem().toString() == opcoes[0]){
+        String[] opcoes = {"Nome", "CPF"};
+        if (selectTipoBusca.getSelectedItem().toString() == opcoes[0]) {
             lblBusca.setText("Digite o nome do cliente");
-            
-        }else if(selectTipoBusca.getSelectedItem().toString() == opcoes[1]){
+
+        } else if (selectTipoBusca.getSelectedItem().toString() == opcoes[1]) {
             lblBusca.setText("Digite o CPF do cliente");
         }
     }//GEN-LAST:event_selectTipoBuscaActionPerformed
-
-    private void fieldBuscaPorNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldBuscaPorNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldBuscaPorNomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,11 +220,16 @@ public class ConsultaCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btneditaCliente;
     private javax.swing.JTextField fieldBuscaPorNome;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBusca;
     private javax.swing.JLabel lblConsultaClientes;
     private javax.swing.JLabel lblTipoBusca;
     private javax.swing.JComboBox<String> selectTipoBusca;
+    private static javax.swing.JTable tableConsultaCliente;
     private javax.swing.JPanel telaConsultaClientes;
     // End of variables declaration//GEN-END:variables
 }

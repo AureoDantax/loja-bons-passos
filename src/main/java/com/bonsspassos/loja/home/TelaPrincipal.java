@@ -6,6 +6,7 @@ package com.bonsspassos.loja.home;
 
 import com.bonsspassos.loja.cadastro.CadastroCliente;
 import com.bonsspassos.loja.cadastro.CadastroProduto;
+import com.bonsspassos.loja.consulta.ConsultaCliente;
 import com.bonsspassos.loja.vendas.TelaVenda;
 
 /**
@@ -36,9 +37,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuCadastro = new javax.swing.JMenu();
         cadastroCalcados = new javax.swing.JMenuItem();
         cadastroClientes = new javax.swing.JMenuItem();
+        menuConsulta = new javax.swing.JMenu();
+        ItemConsultaClientes = new javax.swing.JMenuItem();
         menuVendas = new javax.swing.JMenu();
         menuItemVendas = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bons Passos Calçados");
@@ -85,6 +89,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuCadastro);
 
+        menuConsulta.setText("Consultas");
+
+        ItemConsultaClientes.setText("Clientes");
+        ItemConsultaClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemConsultaClientesActionPerformed(evt);
+            }
+        });
+        menuConsulta.add(ItemConsultaClientes);
+
+        jMenuBar1.add(menuConsulta);
+
         menuVendas.setText("Vendas");
         menuVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,6 +119,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(menuVendas);
 
         menuRelatorios.setText("Relatorios");
+
+        jMenuItem1.setText("Gerar Relatório");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(jMenuItem1);
+
         jMenuBar1.add(menuRelatorios);
 
         setJMenuBar(jMenuBar1);
@@ -150,6 +175,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaVenda.setVisible(true);
     }//GEN-LAST:event_menuItemVendasActionPerformed
 
+    private void ItemConsultaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemConsultaClientesActionPerformed
+        // TODO add your handling code here:
+        ConsultaCliente telaConsultaCliente = new ConsultaCliente();
+        telaConsultaCliente.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_ItemConsultaClientesActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -186,11 +221,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ItemConsultaClientes;
     private javax.swing.JMenuItem cadastroCalcados;
     private javax.swing.JMenuItem cadastroClientes;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JMenu menuCadastro;
+    private javax.swing.JMenu menuConsulta;
     private javax.swing.JMenuItem menuItemVendas;
     private javax.swing.JMenu menuRelatorios;
     private javax.swing.JMenu menuVendas;
