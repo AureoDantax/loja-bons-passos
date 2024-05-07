@@ -53,6 +53,7 @@ com\bonsspassos\loja\edicao\EditaCliente$1.class
 com\bonsspassos\loja\edicao\EditaCliente$5.class
 com\bonsspassos\loja\vendas\TelaVenda$1.class
 com\bonsspassos\loja\consulta\ConsultaProduto$5.class
+com\bonsspassos\loja\consulta\ConsultaCliente$6.class
 com\bonsspassos\loja\cadastro\CadastroCliente.class
 com\bonsspassos\loja\home\TelaPrincipal$7.class
 com\bonsspassos\loja\relatorios\TelaRelatorio$5.class

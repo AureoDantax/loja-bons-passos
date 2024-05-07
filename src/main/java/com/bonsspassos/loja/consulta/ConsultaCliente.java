@@ -4,24 +4,25 @@
  */
 package com.bonsspassos.loja.consulta;
 
-import com.bonsspassos.loja.cadastro.CadastroCliente;
+import com.bonsspassos.loja.configDB.Conexao;
 import com.bonsspassos.loja.edicao.EditaCliente;
-import com.bonsspassos.loja.model.Cliente;
-import java.util.List;
+import java.sql.*;
+import java.util.Objects;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @author danta
  */
 public class ConsultaCliente extends javax.swing.JFrame {
+    private final Conexao conexao = new Conexao();
 
     /**
      * Creates new form ConsultaCliente
      */
     public ConsultaCliente() {
         initComponents();
+        addClienteTable();
     }
 
     /**
@@ -73,7 +74,15 @@ public class ConsultaCliente extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nome", "CPF", "Email"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tableConsultaCliente);
 
         btnBuscar.setText("Buscar");
@@ -176,17 +185,17 @@ public class ConsultaCliente extends javax.swing.JFrame {
     private void selectTipoBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectTipoBuscaActionPerformed
         // TODO add your handling code here:
         String[] opcoes = {"Nome", "CPF"};
-        if (selectTipoBusca.getSelectedItem().toString() == opcoes[0]) {
+        if (Objects.equals(selectTipoBusca.getSelectedItem().toString(), opcoes[0])) {
             lblBusca.setText("Digite o nome do cliente");
 
-        } else if (selectTipoBusca.getSelectedItem().toString() == opcoes[1]) {
+        } else if (Objects.equals(selectTipoBusca.getSelectedItem().toString(), opcoes[1])) {
             lblBusca.setText("Digite o CPF do cliente");
         }
     }//GEN-LAST:event_selectTipoBuscaActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        if(fieldBuscaPorNome.getText().isBlank()){
+        if (fieldBuscaPorNome.getText().isBlank()) {
             JOptionPane.showMessageDialog(rootPane, "O campo não pode estar vazio", "Erro na pesquisa", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -199,11 +208,11 @@ public class ConsultaCliente extends javax.swing.JFrame {
         Object valorBusca = tableConsultaCliente.getValueAt(row, colunm);
 
         EditaCliente telaEditaCliente = new EditaCliente();
-        telaEditaCliente.setVisible(rootPaneCheckingEnabled);
-        telaEditaCliente.preencheCampos(CadastroCliente.clientes, valorBusca, nomeColumn);
+        //telaEditaCliente.setVisible(rootPaneCheckingEnabled);
+        // telaEditaCliente.preencheCampos(CadastroCliente.clientes, valorBusca, nomeColumn);
         ((DefaultTableModel) tableConsultaCliente.getModel()).removeRow(row);
         ((DefaultTableModel) tableConsultaCliente.getModel()).addRow(new String[]{
-            "", "", "", ""
+                "", "", "", ""
         });
     }//GEN-LAST:event_btneditaClienteActionPerformed
 
@@ -217,51 +226,42 @@ public class ConsultaCliente extends javax.swing.JFrame {
                 ((DefaultTableModel) tableConsultaCliente.getModel()).removeRow(row);
                 ((DefaultTableModel) tableConsultaCliente.getModel()).addRow(new String[]{"", "", "", ""
                 });
-              JOptionPane.showMessageDialog(rootPane, "Cliente removido com sucesso!", "CLIENTE REMOVIDO", JOptionPane.INFORMATION_MESSAGE);  
+                JOptionPane.showMessageDialog(rootPane, "Cliente removido com sucesso!", "CLIENTE REMOVIDO", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 
 
     }//GEN-LAST:event_btnRemoverActionPerformed
 
-    public static void bufferCliente(List<Cliente> clientes) {
-        if (tableConsultaCliente.isVisible() && clientes.size() > 0) {
-            addClienteTable(clientes);
-        }
-    }
 
     ;
-    public static void addClienteTable(List<Cliente> clientes) {
-        int pos = 0;
-        int id = 1;
 
-        for (Cliente cliente : clientes) {
+    public void addClienteTable() {
+        String sql = "SELECT * FROM clientes where cpf =? removido=false";
+        ResultSet rs;
+        DefaultTableModel model = (DefaultTableModel) tableConsultaCliente.getModel();
+        model.setNumRows(0);
+        
 
-            if (tableConsultaCliente.getValueAt(pos, pos) == null) {
-                tableConsultaCliente.setValueAt(id, pos, 0);
-                tableConsultaCliente.setValueAt(cliente.getNome(), pos, 1);
-                tableConsultaCliente.setValueAt(cliente.getCpf(), pos, 2);
-                tableConsultaCliente.setValueAt(cliente.getEmail(), pos, 3);
+        try {
+            PreparedStatement preparedStatement = conexao.getConexao().prepareStatement(sql);
+            rs = preparedStatement.executeQuery(sql);
+            while (rs.next()) {
+            model.addRow(new Object[] {
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4)
 
-            } else {
 
-                for (pos = 1; pos <= tableConsultaCliente.getRowCount(); pos++) {
-                    id++;
-                    if (tableConsultaCliente.getValueAt(pos, 0) == null) {
-                        tableConsultaCliente.setValueAt(id, pos, 0);
-                        tableConsultaCliente.setValueAt(cliente.getNome(), pos, 1);
-                        tableConsultaCliente.setValueAt(cliente.getCpf(), pos, 2);
-                        tableConsultaCliente.setValueAt(cliente.getEmail(), pos, 3);
-                        break;
-                    }
-
-                }
-
+            });
+            conexao.getConexao().close();
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
-
     }
-
 
 
     /**
@@ -271,7 +271,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -313,3 +313,4 @@ public class ConsultaCliente extends javax.swing.JFrame {
     private javax.swing.JPanel telaConsultaClientes;
     // End of variables declaration//GEN-END:variables
 }
+
