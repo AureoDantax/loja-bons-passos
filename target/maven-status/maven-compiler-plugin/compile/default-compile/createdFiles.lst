@@ -13,6 +13,7 @@ com\bonsspassos\loja\cadastro\CadastroProduto$7.class
 com\bonsspassos\loja\home\TelaPrincipal$5.class
 com\bonsspassos\loja\consulta\ConsultaProduto$3.class
 com\bonsspassos\loja\consulta\ConsultaCliente$1.class
+com\bonsspassos\loja\configDB\Conexao.class
 com\bonsspassos\loja\consulta\ConsultaCliente$4.class
 com\bonsspassos\loja\home\TelaPrincipal$2.class
 com\bonsspassos\loja\vendas\TelaVenda$13.class
@@ -55,6 +56,7 @@ com\bonsspassos\loja\vendas\TelaVenda$1.class
 com\bonsspassos\loja\consulta\ConsultaProduto$5.class
 com\bonsspassos\loja\consulta\ConsultaCliente$6.class
 com\bonsspassos\loja\cadastro\CadastroCliente.class
+com\bonsspassos\loja\daos\DaoCliente.class
 com\bonsspassos\loja\home\TelaPrincipal$7.class
 com\bonsspassos\loja\relatorios\TelaRelatorio$5.class
 com\bonsspassos\loja\cadastro\CadastroProduto$5.class

@@ -22,8 +22,15 @@ public class Cliente {
     private String sexo;
     private String estadoCivil;
     private String endereco;
-    
-    public Cliente(){};
+
+    public Cliente() {}
+
+    public Cliente(int id, String nome, String cpf, String email) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+    }
 
     public Cliente(int id, String nome, String cpf, String email, String telefone, LocalDate dataNascimento, String sexo, String estadooCivil, String endereco) {
         this.id = id;
@@ -39,14 +46,14 @@ public class Cliente {
 
     @Override
     public String toString() {
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return "Nome: " + nome 
-                + "\nCPF: " + cpf 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return "Nome: " + nome
+                + "\nCPF: " + cpf
                 + "\nEmail: " + email
-                + "\nTelefone: " + telefone +
-                "\nData de Nascimento: " + dataNascimento.format(formatter)
+                + "\nTelefone: " + telefone
+                + "\nData de Nascimento: " + dataNascimento.format(formatter)
                 + "\nSexo: " + sexo
-                + "\nEstado civil: " + estadoCivil 
+                + "\nEstado civil: " + estadoCivil
                 + "\nEndereço: " + endereco;
     }
 
@@ -65,8 +72,6 @@ public class Cliente {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
-    
-    
 
     public String getNome() {
         return nome;
@@ -124,6 +129,4 @@ public class Cliente {
         this.estadoCivil = estadoCivil;
     }
 
-   
-    
 }

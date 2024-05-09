@@ -4,9 +4,10 @@
  */
 package com.bonsspassos.loja.consulta;
 
-import com.bonsspassos.loja.configDB.Conexao;
+import com.bonsspassos.loja.daos.DaoCliente;
 import com.bonsspassos.loja.edicao.EditaCliente;
-import java.sql.*;
+import com.bonsspassos.loja.model.Cliente;
+import java.util.List;
 import java.util.Objects;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +16,8 @@ import javax.swing.table.DefaultTableModel;
  * @author danta
  */
 public class ConsultaCliente extends javax.swing.JFrame {
-    private final Conexao conexao = new Conexao();
+
+    static DaoCliente dao = new DaoCliente();
 
     /**
      * Creates new form ConsultaCliente
@@ -37,14 +39,14 @@ public class ConsultaCliente extends javax.swing.JFrame {
         telaConsultaClientes = new javax.swing.JPanel();
         lblConsultaClientes = new javax.swing.JLabel();
         lblTipoBusca = new javax.swing.JLabel();
-        selectTipoBusca = new javax.swing.JComboBox<>();
+        boxTipoBusca = new javax.swing.JComboBox<>();
         lblBusca = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableConsultaCliente = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
         btneditaCliente = new javax.swing.JButton();
-        fieldBuscaPorNome = new javax.swing.JTextField();
+        fieldBuscaPorFiltro = new javax.swing.JTextField();
 
         setTitle("CONSULTA CLIENTES");
 
@@ -53,15 +55,15 @@ public class ConsultaCliente extends javax.swing.JFrame {
 
         lblTipoBusca.setText("Tipo de busca:");
 
-        selectTipoBusca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "CPF" }));
-        selectTipoBusca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        selectTipoBusca.addActionListener(new java.awt.event.ActionListener() {
+        boxTipoBusca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "CPF" }));
+        boxTipoBusca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        boxTipoBusca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectTipoBuscaActionPerformed(evt);
+                boxTipoBuscaActionPerformed(evt);
             }
         });
 
-        lblBusca.setLabelFor(fieldBuscaPorNome);
+        lblBusca.setLabelFor(fieldBuscaPorFiltro);
         lblBusca.setText("Digite o nome do cliente:");
 
         tableConsultaCliente.setModel(new javax.swing.table.DefaultTableModel(
@@ -84,6 +86,13 @@ public class ConsultaCliente extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tableConsultaCliente);
+        if (tableConsultaCliente.getColumnModel().getColumnCount() > 0) {
+            tableConsultaCliente.getColumnModel().getColumn(0).setPreferredWidth(3);
+            tableConsultaCliente.getColumnModel().getColumn(1).setPreferredWidth(16);
+            tableConsultaCliente.getColumnModel().getColumn(2).setPreferredWidth(15);
+            tableConsultaCliente.getColumnModel().getColumn(3).setMinWidth(59);
+            tableConsultaCliente.getColumnModel().getColumn(3).setPreferredWidth(70);
+        }
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -113,29 +122,26 @@ public class ConsultaCliente extends javax.swing.JFrame {
             .addGroup(telaConsultaClientesLayout.createSequentialGroup()
                 .addGroup(telaConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(telaConsultaClientesLayout.createSequentialGroup()
-                        .addGroup(telaConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(telaConsultaClientesLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblTipoBusca)
-                                .addGap(18, 18, 18)
-                                .addComponent(selectTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(telaConsultaClientesLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lblBusca)
-                                .addGap(18, 18, 18)
-                                .addComponent(fieldBuscaPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(btnBuscar))
-                            .addGroup(telaConsultaClientesLayout.createSequentialGroup()
-                                .addGap(107, 107, 107)
-                                .addComponent(lblConsultaClientes)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(lblTipoBusca)
+                        .addGap(18, 18, 18)
+                        .addComponent(boxTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(telaConsultaClientesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblBusca)
+                        .addGap(18, 18, 18)
+                        .addComponent(fieldBuscaPorFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnBuscar))
+                    .addGroup(telaConsultaClientesLayout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(lblConsultaClientes))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, telaConsultaClientesLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btneditaCliente)
                         .addGap(18, 18, 18)
-                        .addComponent(btnRemover)))
+                        .addComponent(btnRemover))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         telaConsultaClientesLayout.setVerticalGroup(
@@ -146,12 +152,12 @@ public class ConsultaCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(telaConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTipoBusca)
-                    .addComponent(selectTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(boxTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(telaConsultaClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBusca)
                     .addComponent(btnBuscar)
-                    .addComponent(fieldBuscaPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fieldBuscaPorFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -166,9 +172,9 @@ public class ConsultaCliente extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addComponent(telaConsultaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,87 +188,96 @@ public class ConsultaCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void selectTipoBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectTipoBuscaActionPerformed
+    private void boxTipoBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxTipoBuscaActionPerformed
         // TODO add your handling code here:
         String[] opcoes = {"Nome", "CPF"};
-        if (Objects.equals(selectTipoBusca.getSelectedItem().toString(), opcoes[0])) {
+        if (Objects.equals(boxTipoBusca.getSelectedItem().toString(), opcoes[0])) {
             lblBusca.setText("Digite o nome do cliente");
 
-        } else if (Objects.equals(selectTipoBusca.getSelectedItem().toString(), opcoes[1])) {
+        } else if (Objects.equals(boxTipoBusca.getSelectedItem().toString(), opcoes[1])) {
             lblBusca.setText("Digite o CPF do cliente");
         }
-    }//GEN-LAST:event_selectTipoBuscaActionPerformed
+    }//GEN-LAST:event_boxTipoBuscaActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        if (fieldBuscaPorNome.getText().isBlank()) {
-            JOptionPane.showMessageDialog(rootPane, "O campo não pode estar vazio", "Erro na pesquisa", JOptionPane.ERROR_MESSAGE);
+        var filtro = boxTipoBusca.getSelectedItem().toString().toLowerCase();
+        var valorBusca = fieldBuscaPorFiltro.getText();
+        if (valorBusca.isBlank()) {
+            addClienteTable();
+        } else {
+
+            addClienteTable(filtro, valorBusca);
+
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btneditaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditaClienteActionPerformed
         // TODO add your handling code here:
+
         int row = tableConsultaCliente.getSelectedRow();
-        int colunm = tableConsultaCliente.getSelectedColumn();
-        String nomeColumn = tableConsultaCliente.getColumnName(colunm);
-        Object valorBusca = tableConsultaCliente.getValueAt(row, colunm);
+        int idcolunmIndex = 0;
+
+        Object idCliente = tableConsultaCliente.getValueAt(row, idcolunmIndex);
 
         EditaCliente telaEditaCliente = new EditaCliente();
-        //telaEditaCliente.setVisible(rootPaneCheckingEnabled);
-        // telaEditaCliente.preencheCampos(CadastroCliente.clientes, valorBusca, nomeColumn);
-        ((DefaultTableModel) tableConsultaCliente.getModel()).removeRow(row);
-        ((DefaultTableModel) tableConsultaCliente.getModel()).addRow(new String[]{
-                "", "", "", ""
-        });
+        telaEditaCliente.setVisible(true);
+        telaEditaCliente.preencheCampos((int) idCliente);
+        addClienteTable();
+
     }//GEN-LAST:event_btneditaClienteActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         // TODO add your handling code here:
         int row = tableConsultaCliente.getSelectedRow();
-        if (row != -1) {
+        int idcolunmIndex = 0;
 
-            int op = JOptionPane.showConfirmDialog(rootPane, "Confirmar remoção?", "REMOVER CLIENTE", JOptionPane.YES_NO_OPTION);
-            if (op == 0) {
-                ((DefaultTableModel) tableConsultaCliente.getModel()).removeRow(row);
-                ((DefaultTableModel) tableConsultaCliente.getModel()).addRow(new String[]{"", "", "", ""
-                });
-                JOptionPane.showMessageDialog(rootPane, "Cliente removido com sucesso!", "CLIENTE REMOVIDO", JOptionPane.INFORMATION_MESSAGE);
-            }
+        Cliente cliente = dao.buscaClientePorId((int) tableConsultaCliente.getValueAt(row, idcolunmIndex));
+        int op = JOptionPane.showConfirmDialog(rootPane, "Confirma a remoção do cliente " + cliente.getNome() + " CPF: " + cliente.getCpf(), "Remover Cliente", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION);
+        if (op == 0) {
+            dao.removeCliente(cliente);
+            JOptionPane.showMessageDialog(rootPane, "Cliente Removido com sucesso!", "Remoção concluida!", JOptionPane.INFORMATION_MESSAGE);
+            addClienteTable();
         }
-
-
     }//GEN-LAST:event_btnRemoverActionPerformed
 
-
-    ;
-
-    public void addClienteTable() {
-        String sql = "SELECT * FROM clientes where cpf =? removido=false";
-        ResultSet rs;
+    public static void addClienteTable() {
         DefaultTableModel model = (DefaultTableModel) tableConsultaCliente.getModel();
-        model.setNumRows(0);
-        
+        model.setRowCount(0);
+        List<Cliente> clientes = dao.buscaCliente();
 
-        try {
-            PreparedStatement preparedStatement = conexao.getConexao().prepareStatement(sql);
-            rs = preparedStatement.executeQuery(sql);
-            while (rs.next()) {
-            model.addRow(new Object[] {
-                    rs.getInt(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4)
+        for (Cliente cliente : clientes) {
 
+            model.addRow(new Object[]{
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getCpf(),
+                cliente.getEmail()
 
             });
-            conexao.getConexao().close();
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e);
+
         }
+
     }
 
+    public static void addClienteTable(String selectFiltro, String valorFiltro) {
+        DefaultTableModel model = (DefaultTableModel) tableConsultaCliente.getModel();
+        model.setRowCount(0);
+        List<Cliente> clientes = dao.buscaCliente(selectFiltro, valorFiltro);
+
+        for (Cliente cliente : clientes) {
+
+            model.addRow(new Object[]{
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getCpf(),
+                cliente.getEmail()
+
+            });
+
+        }
+
+    }
 
     /**
      * @param args the command line arguments
@@ -300,17 +315,16 @@ public class ConsultaCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> boxTipoBusca;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btneditaCliente;
-    private javax.swing.JTextField fieldBuscaPorNome;
+    private javax.swing.JTextField fieldBuscaPorFiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBusca;
     private javax.swing.JLabel lblConsultaClientes;
     private javax.swing.JLabel lblTipoBusca;
-    private javax.swing.JComboBox<String> selectTipoBusca;
     private static javax.swing.JTable tableConsultaCliente;
     private javax.swing.JPanel telaConsultaClientes;
     // End of variables declaration//GEN-END:variables
 }
-
