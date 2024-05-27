@@ -69,7 +69,7 @@ public class DaoCliente {
         List<Cliente> clientes = new ArrayList<>();
         ResultSet rs;
         try {
-
+            
             valorBusca = "%%" + valorBusca + "%%";
             Connection con = conexao.getConexao();
             PreparedStatement preparedStatement = con.prepareStatement(sql);

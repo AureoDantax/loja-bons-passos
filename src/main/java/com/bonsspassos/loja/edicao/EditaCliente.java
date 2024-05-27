@@ -286,7 +286,7 @@ public class EditaCliente extends javax.swing.JFrame {
     private void btnEditaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditaClienteActionPerformed
 
         Cliente cliente = new Cliente();
-        List<String> result = CadastroCliente.validaCamposCadastro(fieldNome, fieldEmail, fieldEndereco, fieldCpf, fieldTelefone, fieldNasc);
+        List<String> result = CadastroCliente.validaCamposCadastro(fieldNome, fieldEmail, fieldEndereco, fieldCpf, fieldTelefone,fieldNasc);
         try {
             cliente.setDataNascimento(LocalDate.parse(fieldNasc.getText(), formatter));
         } catch (Exception e) {
@@ -336,10 +336,10 @@ public class EditaCliente extends javax.swing.JFrame {
 
         Cliente result = dao.buscaClientePorId(id);
         fieldNome.setText(result.getNome());
-        fieldCpf.setText(result.getCpf().toString());
+        fieldCpf.setText(result.getCpf());
         fieldEmail.setText(result.getEmail());
-        fieldNasc.setText(result.getDataNascimento().format(formatter));
-        fieldTelefone.setText(result.getTelefone().toString());
+        fieldNasc.setValue(result.getDataNascimento().format(formatter));
+        fieldTelefone.setText(result.getTelefone());
         fieldEndereco.setText(result.getEndereco());
         selectSexo.setSelectedItem(result.getSexo());
         selectEstadoCivil.setSelectedItem(result.getEstadoCivil());
@@ -387,6 +387,8 @@ public class EditaCliente extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EditaCliente.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

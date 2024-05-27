@@ -10,6 +10,7 @@ import com.bonsspassos.loja.consulta.ConsultaCliente;
 import com.bonsspassos.loja.consulta.ConsultaProduto;
 import com.bonsspassos.loja.relatorios.TelaRelatorio;
 import com.bonsspassos.loja.vendas.TelaVenda;
+import javax.swing.UIManager;
 
 /**
  *
@@ -20,8 +21,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
+    
     public TelaPrincipal() {
-        setExtendedState(MAXIMIZED_BOTH);
+        setExtendedState((int) CENTER_ALIGNMENT);
+        UIManager.put("OptionPane.yesButtonText", "Sim");
+        UIManager.put("OptionPane.noButtonText", "Não");
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar");
         initComponents();
     }
 
@@ -34,7 +39,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         cadastroCalcados = new javax.swing.JMenuItem();
@@ -53,22 +58,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setBackground(new java.awt.Color(102, 204, 255));
         setLocationByPlatform(true);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 262, Short.MAX_VALUE)
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Bonspassos-logo.png"))); // NOI18N
 
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.black, null, null));
         jMenuBar1.setToolTipText("");
 
-        menuCadastro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(204, 255, 255))); // NOI18N
         menuCadastro.setText("Cadastro");
+        menuCadastro.setToolTipText("Cadastre clientes ou produtos");
+        menuCadastro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         cadastroCalcados.setText("Calçados");
         cadastroCalcados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -79,7 +76,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuCadastro.add(cadastroCalcados);
 
-        cadastroClientes.setBackground(new java.awt.Color(51, 153, 255));
         cadastroClientes.setText("Clientes");
         cadastroClientes.setToolTipText("Cadastro de clientes");
         cadastroClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -93,8 +89,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(menuCadastro);
 
         menuConsulta.setText("Consultas");
+        menuConsulta.setToolTipText("Consulte clientes ou produtos");
+        menuConsulta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         ItemConsultaProdutos.setText("Produtos");
+        ItemConsultaProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ItemConsultaProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ItemConsultaProdutosActionPerformed(evt);
@@ -103,6 +102,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuConsulta.add(ItemConsultaProdutos);
 
         ItemConsultaClientes.setText("Clientes");
+        ItemConsultaClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ItemConsultaClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ItemConsultaClientesActionPerformed(evt);
@@ -113,6 +113,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(menuConsulta);
 
         menuVendas.setText("Vendas");
+        menuVendas.setToolTipText("Realize uma venda");
+        menuVendas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menuVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuVendasActionPerformed(evt);
@@ -120,6 +122,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         menuItemVendas.setText("Realizar vendas");
+        menuItemVendas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         menuItemVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemVendasActionPerformed(evt);
@@ -130,8 +133,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(menuVendas);
 
         menuRelatorios.setText("Relatorios");
+        menuRelatorios.setToolTipText("Acesse o relatório sintético ou analitico");
+        menuRelatorios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jMenuItem1.setText("Gerar Relatório");
+        jMenuItem1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -147,17 +153,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(521, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(250, 250, 250)
+                .addComponent(jLabel1)
+                .addGap(250, 250, 250))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(85, 85, 85)
+                .addComponent(jLabel1)
+                .addGap(85, 85, 85))
         );
 
         pack();
@@ -230,6 +236,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -244,9 +252,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem ItemConsultaProdutos;
     private javax.swing.JMenuItem cadastroCalcados;
     private javax.swing.JMenuItem cadastroClientes;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenu menuConsulta;
     private javax.swing.JMenuItem menuItemVendas;

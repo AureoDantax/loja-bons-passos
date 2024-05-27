@@ -208,7 +208,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
         } else {
 
             addClienteTable(filtro, valorBusca);
-
+            fieldBuscaPorFiltro.setText("");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -233,7 +233,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
         int idcolunmIndex = 0;
 
         Cliente cliente = dao.buscaClientePorId((int) tableConsultaCliente.getValueAt(row, idcolunmIndex));
-        int op = JOptionPane.showConfirmDialog(rootPane, "Confirma a remoção do cliente " + cliente.getNome() + " CPF: " + cliente.getCpf(), "Remover Cliente", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION);
+        int op = JOptionPane.showConfirmDialog(rootPane, "Confirma a remoção do cliente " + cliente.getNome() + " CPF: " + cliente.getCpf() +"?", "Remover Cliente", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION);
         if (op == 0) {
             dao.removeCliente(cliente);
             JOptionPane.showMessageDialog(rootPane, "Cliente Removido com sucesso!", "Remoção concluida!", JOptionPane.INFORMATION_MESSAGE);
@@ -264,7 +264,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tableConsultaCliente.getModel();
         model.setRowCount(0);
         List<Cliente> clientes = dao.buscaCliente(selectFiltro, valorFiltro);
-
+        ;
         for (Cliente cliente : clientes) {
 
             model.addRow(new Object[]{
@@ -304,6 +304,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ConsultaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

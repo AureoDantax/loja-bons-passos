@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.bonsspassos.loja.consulta;
 
-import com.bonsspassos.loja.cadastro.CadastroProduto;
 import static com.bonsspassos.loja.consulta.ConsultaProduto.addProdutoTable;
+import com.bonsspassos.loja.daos.DaoProduto;
 import com.bonsspassos.loja.edicao.EditaProduto;
 import com.bonsspassos.loja.model.Produto;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -18,11 +15,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ConsultaProduto extends javax.swing.JFrame {
 
+    static DaoProduto dao = new DaoProduto();
+
     /**
      * Creates new form ConsultaProduto
      */
     public ConsultaProduto() {
         initComponents();
+        addProdutoTable();
     }
 
     /**
@@ -35,11 +35,11 @@ public class ConsultaProduto extends javax.swing.JFrame {
     private void initComponents() {
 
         selectTipoBusca = new javax.swing.JComboBox<>();
-        fieldBuscaPorID = new javax.swing.JTextField();
+        fieldBuscaPorFiltro = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableConsultaProduto = new javax.swing.JTable();
-        lblbuscarID = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
         btneditaProduto = new javax.swing.JButton();
         lblConsultaProdutos = new javax.swing.JLabel();
         lblTipoBusca = new javax.swing.JLabel();
@@ -56,32 +56,40 @@ public class ConsultaProduto extends javax.swing.JFrame {
             }
         });
 
-        fieldBuscaPorID.setDragEnabled(true);
+        fieldBuscaPorFiltro.setDragEnabled(true);
 
         tableConsultaProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Produto", "Marca", "Departamento", "Modelo", "Tamanho", "Quantidade", "Valor"
+                "ID", "Produto", "Marca", "Departamento"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tableConsultaProduto);
 
-        lblbuscarID.setText("Buscar");
-        lblbuscarID.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblbuscarIDActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
-        jButton1.setText("REMOVER");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRemover.setText("REMOVER");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRemoverActionPerformed(evt);
             }
         });
 
@@ -113,7 +121,7 @@ public class ConsultaProduto extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btneditaProduto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btnRemover))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTipoBusca)
@@ -122,9 +130,9 @@ public class ConsultaProduto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblbuscaID)
                         .addGap(11, 11, 11)
-                        .addComponent(fieldBuscaPorID, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fieldBuscaPorFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(lblbuscarID)))
+                        .addComponent(btnBuscar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -137,14 +145,14 @@ public class ConsultaProduto extends javax.swing.JFrame {
                     .addComponent(lblTipoBusca)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(selectTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(fieldBuscaPorID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblbuscarID)
+                        .addComponent(fieldBuscaPorFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar)
                         .addComponent(lblbuscaID)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnRemover)
                     .addComponent(btneditaProduto))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -164,82 +172,85 @@ public class ConsultaProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_selectTipoBuscaActionPerformed
 
-    private void lblbuscarIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblbuscarIDActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-         JOptionPane.showMessageDialog(rootPane, "O campo não pode estar vazio", "Erro na pesquisa", JOptionPane.ERROR_MESSAGE);
-    }//GEN-LAST:event_lblbuscarIDActionPerformed
+        var filtro = selectTipoBusca.getSelectedItem().toString().toLowerCase();
+        var valorBusca = fieldBuscaPorFiltro.getText();
+        if (valorBusca.isBlank()) {
+            addProdutoTable();
+        } else {
+
+            addProdutoTable(filtro, valorBusca);
+
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btneditaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditaProdutoActionPerformed
+
         int row = tableConsultaProduto.getSelectedRow();
-        int colunm = tableConsultaProduto.getSelectedColumn();
-        String nomeColumn = tableConsultaProduto.getColumnName(colunm);
-        Object valorBusca = tableConsultaProduto.getValueAt(row, colunm);
+        int idcolunmIndex = 0;
+
+        Object idProduto = tableConsultaProduto.getValueAt(row, idcolunmIndex);
 
         EditaProduto telaEditaProduto = new EditaProduto();
-        telaEditaProduto.setVisible(rootPaneCheckingEnabled);
-        telaEditaProduto.preencheCampos(CadastroProduto.produtos, valorBusca, nomeColumn);
-        ((DefaultTableModel) tableConsultaProduto.getModel()).removeRow(row);
-        ((DefaultTableModel) tableConsultaProduto.getModel()).addRow(new String[]{
-            "", "", "", ""}
-        );
+        telaEditaProduto.setVisible(true);
+        telaEditaProduto.preencheCampos((int) idProduto);
+
+
     }//GEN-LAST:event_btneditaProdutoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         // TODO add your handling code here:
         int row = tableConsultaProduto.getSelectedRow();
-        if (row != -1) {
+        int idcolunmIndex = 0;
 
-            int op = JOptionPane.showConfirmDialog(rootPane, "Confirmar remoção?", "REMOVER PRODUTO", JOptionPane.YES_NO_OPTION);
-            if (op == 0) {
-                ((DefaultTableModel) tableConsultaProduto.getModel()).removeRow(row);
-                ((DefaultTableModel) tableConsultaProduto.getModel()).addRow(new String[]{"", "", "", ""
-                });
-              JOptionPane.showMessageDialog(rootPane, "Produto removido com sucesso!", "PRODUTO REMOVIDO", JOptionPane.INFORMATION_MESSAGE);  
-            }
+        Produto produto = dao.buscaProdutoPorId(Integer.parseInt(tableConsultaProduto.getValueAt(row, idcolunmIndex).toString()));
+        int op = JOptionPane.showConfirmDialog(rootPane, "Confirme a remoção do produto " + produto.getNomeProduto() + produto.getMarcaProduto(), "Remover Produto", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION);
+        if (op == 0) {
+            dao.removeProduto(produto);
+            JOptionPane.showMessageDialog(rootPane, "Produto Removido com sucesso!", "Remoção concluida!", JOptionPane.INFORMATION_MESSAGE);
+            addProdutoTable();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
-    public static void bufferProduto(List<Produto> produtos) {
-        if (tableConsultaProduto.isVisible() && produtos.size() > 0) {
-            addProdutoTable(produtos);
+    public static void addProdutoTable() {
+        DefaultTableModel model = (DefaultTableModel) tableConsultaProduto.getModel();
+        model.setRowCount(0);
+        List<Produto> produtos = dao.buscaProduto();
+
+        for (Produto produto : produtos) {
+
+            model.addRow(new Object[]{
+                produto.getId(),
+                produto.getNomeProduto(),
+                produto.getMarcaProduto(),
+                produto.getDepartamentoProd(),
+                produto.getModeloProduto(),});
         }
     }
 
-    public static void addProdutoTable(List<Produto> produtos) {
-        int pos = 0;
-        int id = 1;
-        for (Produto produto : produtos) {
+    public static void addProdutoTable(String selectFiltro, String valorFiltro) {
+        DefaultTableModel model = (DefaultTableModel) tableConsultaProduto.getModel();
+        model.setRowCount(0);
+        List<Produto> produtos = new ArrayList<>();
+        if (selectFiltro.equals("ID")) {
 
-            if (tableConsultaProduto.getValueAt(pos, pos) == null) {
-                tableConsultaProduto.setValueAt(id, pos, 0);
-                tableConsultaProduto.setValueAt(produto.getNomeProduto(), pos, 1);
-                tableConsultaProduto.setValueAt(produto.getMarcaProduto(), pos, 2);
-                tableConsultaProduto.setValueAt(produto.getDepartamentoProd(), pos, 3);
-                tableConsultaProduto.setValueAt(produto.getModeloProduto(), pos, 4);
-                tableConsultaProduto.setValueAt(produto.getTamanhoProduto(), pos, 5);
-                tableConsultaProduto.setValueAt(produto.getQtdProduto(), pos, 6);
-                tableConsultaProduto.setValueAt(produto.getValorProduto(), pos, 7);
-
-            } else {
-
-                for (pos = 1; pos <= tableConsultaProduto.getRowCount(); pos++) {
-                    id++;
-                    if (tableConsultaProduto.getValueAt(pos, pos) == null) {
-                        tableConsultaProduto.setValueAt(id, pos, 0);
-                        tableConsultaProduto.setValueAt(produto.getNomeProduto(), pos, 1);
-                        tableConsultaProduto.setValueAt(produto.getMarcaProduto(), pos, 2);
-                        tableConsultaProduto.setValueAt(produto.getDepartamentoProd(), pos, 3);
-                        tableConsultaProduto.setValueAt(produto.getModeloProduto(), pos, 4);
-                        tableConsultaProduto.setValueAt(produto.getTamanhoProduto(), pos, 5);
-                        tableConsultaProduto.setValueAt(produto.getQtdProduto(), pos, 6);
-                        tableConsultaProduto.setValueAt(produto.getValorProduto(), pos, 7);
-                    }
-
-                }
-
-            }
+            produtos.add(dao.buscaProdutoPorId(Integer.parseInt(valorFiltro)));
+        } else {
+            produtos = dao.buscaProduto(selectFiltro, valorFiltro);
         }
 
+        for (Produto produto : produtos) {
+
+            model.addRow(new Object[]{
+                produto.getId(),
+                produto.getNomeProduto(),
+                produto.getMarcaProduto(),
+                produto.getDepartamentoProd(),
+                produto.getModeloProduto()
+
+            });
+        }
     }
 
     /**
@@ -269,6 +280,8 @@ public class ConsultaProduto extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -279,14 +292,14 @@ public class ConsultaProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnRemover;
     private javax.swing.JButton btneditaProduto;
-    private javax.swing.JTextField fieldBuscaPorID;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField fieldBuscaPorFiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblConsultaProdutos;
     private javax.swing.JLabel lblTipoBusca;
     private javax.swing.JLabel lblbuscaID;
-    private javax.swing.JButton lblbuscarID;
     private javax.swing.JComboBox<String> selectTipoBusca;
     private static javax.swing.JTable tableConsultaProduto;
     // End of variables declaration//GEN-END:variables

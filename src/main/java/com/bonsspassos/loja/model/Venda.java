@@ -4,66 +4,44 @@
  */
 package com.bonsspassos.loja.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
  * @author apoll
  */
 public class Venda {
-  private int id;
-  private Produto produto;
-  private String preco;
-  private int qtdDesejada;
-  private int tamanho;
-  private int estoque;
 
-    public int getId() {
-        return id;
+    private int id;
+    private int idComprador;
+    private ArrayList<ItemVenda> itensVenda = new ArrayList<>();
+    private BigDecimal total;
+    private LocalDate dataVenda;
+
+    public int getIdComprador() {
+        return idComprador;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdComprador(int idComprador) {
+        this.idComprador = idComprador;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public ArrayList<ItemVenda> getItensVenda() {
+        return itensVenda;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setItensVenda(ArrayList<ItemVenda> itensVenda) {
+        this.itensVenda = itensVenda;
     }
 
-    public String getPreco() {
-        return preco;
+    public BigDecimal getTotal() {
+        return total;
     }
 
-    public void setPreco(String preco) {
-        this.preco = preco;
-    }
-
-    public int getQtdDesejada() {
-        return qtdDesejada;
-    }
-
-    public void setQtdDesejada(int qtdDesejada) {
-        this.qtdDesejada = qtdDesejada;
-    }
-
-    public int getTamanho() {
-        return tamanho;
-    }
-
-    public void setTamanho(int tamanho) {
-        this.tamanho = tamanho;
-    }
-
-    public int getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(int estoque) {
-        this.estoque = estoque;
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
     public LocalDate getDataVenda() {
@@ -73,5 +51,8 @@ public class Venda {
     public void setDataVenda(LocalDate dataVenda) {
         this.dataVenda = dataVenda;
     }
-  private LocalDate dataVenda;
+
+    public Venda() {
+    }
+    
 }

@@ -4,6 +4,8 @@
  */
 package com.bonsspassos.loja.model;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author RSG
@@ -17,22 +19,18 @@ public class Produto {
     private String modeloProduto;
     private Integer tamanhoProduto;
     private Integer qtdProduto;
-    private String valorProduto;
+    private BigDecimal valorProduto;
 
     public Produto() {
     }
 
-    ;
-
-    public Produto(String nomeProduto, String departamentoProd, String marcaProduto, String modeloProduto, int tamanhoProduto, int qtdProduto, String valorProduto) {
+    public Produto(int id, String nomeProduto, String departamentoProd, String marcaProduto,String modeloProduto,int tamanhoProduto) {
         this.id = id;
         this.nomeProduto = nomeProduto;
         this.departamentoProd = departamentoProd;
         this.marcaProduto = marcaProduto;
         this.modeloProduto = modeloProduto;
-        this.tamanhoProduto = tamanhoProduto;
-        this.qtdProduto = qtdProduto;
-        this.valorProduto = valorProduto;
+        this.tamanhoProduto=tamanhoProduto;
     }
 
     @Override
@@ -69,11 +67,11 @@ public class Produto {
         this.departamentoProd = departamentoProd;
     }
 
-    public String getValorProduto() {
+    public BigDecimal getValorProduto() {
         return valorProduto;
     }
 
-    public void setValorProduto(String valorProduto) {
+    public void setValorProduto(BigDecimal valorProduto) {
         this.valorProduto = valorProduto;
     }
 

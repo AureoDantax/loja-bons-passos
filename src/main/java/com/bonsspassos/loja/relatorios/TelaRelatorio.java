@@ -4,9 +4,12 @@
  */
 package com.bonsspassos.loja.relatorios;
 
-import javax.swing.JFormattedTextField;
+import com.bonsspassos.loja.daos.DaoRelatorios;
+import com.bonsspassos.loja.model.RelatorioSintetico;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,6 +20,8 @@ public class TelaRelatorio extends javax.swing.JFrame {
     /**
      * Creates new form relatorio
      */
+    DaoRelatorios dao = new DaoRelatorios();
+
     public TelaRelatorio() {
         initComponents();
     }
@@ -38,15 +43,14 @@ public class TelaRelatorio extends javax.swing.JFrame {
         panelRelatorio = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableRelatorio = new javax.swing.JTable();
-        scrollbar2 = new java.awt.Scrollbar();
         fieldNome = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         btnConsultarNomeCpf = new javax.swing.JButton();
-        fieldDataInicio = new javax.swing.JFormattedTextField();
-        fieldDataFim = new javax.swing.JFormattedTextField();
         btnConsultarData = new javax.swing.JButton();
         fieldCpf = new javax.swing.JFormattedTextField();
+        fieldDataInicio = new com.toedter.calendar.JDateChooser();
+        fieldDataFim = new com.toedter.calendar.JDateChooser();
 
         setTitle("GERAR RELATÓRIO DE VENDAS");
         setResizable(false);
@@ -66,17 +70,14 @@ public class TelaRelatorio extends javax.swing.JFrame {
         tableRelatorio.setAutoCreateRowSorter(true);
         tableRelatorio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "Nome", "CPF", "Data", "Modelo", "Valor", "Quantidade", "Total"
+                "idVenda", "idCliente", "Nome", "Data", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -92,16 +93,13 @@ public class TelaRelatorio extends javax.swing.JFrame {
             .addGroup(panelRelatorioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(scrollbar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelRelatorioLayout.setVerticalGroup(
             panelRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRelatorioLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(panelRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(scrollbar2, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(266, 266, 266))
         );
 
@@ -122,23 +120,6 @@ public class TelaRelatorio extends javax.swing.JFrame {
             }
         });
 
-        try {
-            fieldDataInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        fieldDataInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldDataInicioActionPerformed(evt);
-            }
-        });
-
-        try {
-            fieldDataFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         btnConsultarData.setText("Consultar");
         btnConsultarData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +132,12 @@ public class TelaRelatorio extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+
+        fieldDataInicio.setToolTipText(" ");
+        fieldDataInicio.setDateFormatString("dd '/' MM '/' yyyy");
+
+        fieldDataFim.setToolTipText(" ");
+        fieldDataFim.setDateFormatString("dd '/' MM '/' yyyy");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -168,12 +155,12 @@ public class TelaRelatorio extends javax.swing.JFrame {
                                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(fieldDataInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-                                    .addComponent(fieldDataFim))
-                                .addGap(33, 33, 33)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fieldDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fieldDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(43, 43, 43)
                                 .addComponent(btnConsultarData)
-                                .addGap(58, 58, 58)
+                                .addGap(40, 40, 40)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel7)
@@ -200,31 +187,34 @@ public class TelaRelatorio extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel6)
-                                        .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(46, 46, 46))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(btnConsultarData)
-                                    .addGap(34, 34, 34)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnConsultarNomeCpf)
-                                .addGap(30, 30, 30))))
+                        .addComponent(btnConsultarData))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(62, 62, 62)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(fieldDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel7)
-                            .addComponent(fieldDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel6)
+                                            .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(31, 31, 31))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnConsultarNomeCpf)
+                                        .addGap(15, 15, 15)))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(31, 31, 31)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel7)
+                                        .addComponent(fieldCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(fieldDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(fieldDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(18, 18, 18)
                 .addComponent(panelRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 184, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -236,7 +226,7 @@ public class TelaRelatorio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,45 +240,39 @@ public class TelaRelatorio extends javax.swing.JFrame {
 
     private void fieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldNomeActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_fieldNomeActionPerformed
 
-    private void fieldDataInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldDataInicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldDataInicioActionPerformed
+    }//GEN-LAST:event_fieldNomeActionPerformed
 
     private void btnConsultarNomeCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarNomeCpfActionPerformed
         // TODO add your handling code here:
-        if(fieldCpf.getValue()==null||fieldNome.getText()== null){
-              JOptionPane.showMessageDialog(null, "Digite pelo menos um filtro de data!", "Erro na pesquisa", JOptionPane.ERROR_MESSAGE);
-         }
-      
+        if (fieldCpf.getValue() == null || fieldNome.getText() == null) {
+            JOptionPane.showMessageDialog(null, "Digite pelo menos um filtro de data!", "Erro na pesquisa", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnConsultarNomeCpfActionPerformed
 
     private void btnConsultarDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarDataActionPerformed
         // TODO add your handling code here:
-         if(fieldDataInicio.getValue()==null||fieldDataFim.getValue()== null){
-              JOptionPane.showMessageDialog(null, "Digite pelo menos um filtro de data!", "Erro na pesquisa", JOptionPane.ERROR_MESSAGE);
-         }
+
+        Date inicio = fieldDataInicio.getDate();
+        Date fim = fieldDataFim.getDate();
+        List<RelatorioSintetico> vendas = dao.relatorioSinteticoPorPeriodo(inicio, fim);
+        DefaultTableModel model = (DefaultTableModel) tableRelatorio.getModel();
+        model.setRowCount(0);
+        for (RelatorioSintetico venda : vendas) {
+            model.addRow(new Object[]{
+                venda.getIdVenda(),
+                venda.getIdCliente(),
+                venda.getNomeCliente(),
+                venda.getDataVenda(),
+                venda.getValorVenda()
+            });
+
+        }
+
+
     }//GEN-LAST:event_btnConsultarDataActionPerformed
 
-    public static boolean validaCampos(JFormattedTextField dataInicio,JFormattedTextField dataFim){
-       
-            return false;
-            
-            
-        
-        
-    }
-    public static boolean validaCampos(JTextField campoNome, JFormattedTextField campoCpf){
-      return false;
-      
-         
-      
-        
-    }
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -335,8 +319,8 @@ public class TelaRelatorio extends javax.swing.JFrame {
     private javax.swing.JButton btnConsultarData;
     private javax.swing.JButton btnConsultarNomeCpf;
     private javax.swing.JFormattedTextField fieldCpf;
-    private javax.swing.JFormattedTextField fieldDataFim;
-    private javax.swing.JFormattedTextField fieldDataInicio;
+    private com.toedter.calendar.JDateChooser fieldDataFim;
+    private com.toedter.calendar.JDateChooser fieldDataInicio;
     private javax.swing.JTextField fieldNome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -347,7 +331,6 @@ public class TelaRelatorio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelRelatorio;
-    private java.awt.Scrollbar scrollbar2;
     private javax.swing.JTable tableRelatorio;
     // End of variables declaration//GEN-END:variables
 }
