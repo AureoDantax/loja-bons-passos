@@ -69,11 +69,11 @@ public class DaoCliente {
         List<Cliente> clientes = new ArrayList<>();
         ResultSet rs;
         try {
-            
+
             valorBusca = "%%" + valorBusca + "%%";
             Connection con = conexao.getConexao();
             PreparedStatement preparedStatement = con.prepareStatement(sql);
-            
+
             preparedStatement.setString(1, valorBusca);
             rs = preparedStatement.executeQuery();
             while (rs.next()) {

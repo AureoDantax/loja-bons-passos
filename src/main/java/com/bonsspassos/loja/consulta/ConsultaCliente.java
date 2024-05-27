@@ -233,7 +233,7 @@ public class ConsultaCliente extends javax.swing.JFrame {
         int idcolunmIndex = 0;
 
         Cliente cliente = dao.buscaClientePorId((int) tableConsultaCliente.getValueAt(row, idcolunmIndex));
-        int op = JOptionPane.showConfirmDialog(rootPane, "Confirma a remoção do cliente " + cliente.getNome() + " CPF: " + cliente.getCpf() +"?", "Remover Cliente", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION);
+        int op = JOptionPane.showConfirmDialog(rootPane, "Confirma a remoção do cliente " + cliente.getNome() + " CPF: " + cliente.getCpf() + "?", "Remover Cliente", JOptionPane.WARNING_MESSAGE, JOptionPane.YES_NO_OPTION);
         if (op == 0) {
             dao.removeCliente(cliente);
             JOptionPane.showMessageDialog(rootPane, "Cliente Removido com sucesso!", "Remoção concluida!", JOptionPane.INFORMATION_MESSAGE);

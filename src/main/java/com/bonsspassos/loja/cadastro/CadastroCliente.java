@@ -20,9 +20,8 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-
     public CadastroCliente() {
-        
+
         initComponents();
     }
 
@@ -309,7 +308,6 @@ public class CadastroCliente extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(rootPane, "Erro ao relizar Cadastro", "Erro ao cadastrar", ERROR_MESSAGE);
                     }
 
-
                     break;
                 case JOptionPane.NO_OPTION:
                 case JOptionPane.CANCEL_OPTION:
@@ -329,10 +327,10 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastroClienteActionPerformed
 
     public static List<String> validaCamposCadastro(JTextField fieldNome, JTextField fieldEmail,
-                                                    JTextField fieldEndereco,
-                                                    JFormattedTextField fieldCPF,
-                                                    JFormattedTextField fieldTelefone,
-                                                    JFormattedTextField fieldDataNasc
+            JTextField fieldEndereco,
+            JFormattedTextField fieldCPF,
+            JFormattedTextField fieldTelefone,
+            JFormattedTextField fieldDataNasc
     ) {
         List<String> camposNulos = new ArrayList<>();
 
@@ -342,7 +340,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         if (String.valueOf(fieldNome.getText()).isBlank() || fieldNome.getText() == null) {
             camposNulos.add("O campo nome deve ser preenchido!");
         }
-        if (fieldTelefone.getText()  == null) {
+        if (fieldTelefone.getText() == null) {
             camposNulos.add("O Campo telefone deve ser preenchido!");
         }
         if (String.valueOf(fieldEndereco.getText()).isBlank() || fieldEndereco.getText() == null) {
@@ -351,7 +349,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         if (String.valueOf(fieldEmail.getText()).isBlank() || fieldEmail.getText() == null) {
             camposNulos.add("O cammpo email deve ser preencchido!");
         }
-        if (fieldDataNasc.getText()  == null) {
+        if (fieldDataNasc.getText() == null) {
             camposNulos.add("O campo data de nascimento deve ser preenchido!");
         }
 

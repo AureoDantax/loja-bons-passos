@@ -21,7 +21,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
-    
     public TelaPrincipal() {
         setExtendedState((int) CENTER_ALIGNMENT);
         UIManager.put("OptionPane.yesButtonText", "Sim");
@@ -178,18 +177,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroCalcadosActionPerformed
 
     private void cadastroClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroClientesActionPerformed
-      CadastroCliente telaCadastro = new CadastroCliente();
-      telaCadastro.setVisible(rootPaneCheckingEnabled);
+        CadastroCliente telaCadastro = new CadastroCliente();
+        telaCadastro.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_cadastroClientesActionPerformed
 
     private void menuVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVendasActionPerformed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_menuVendasActionPerformed
 
     private void menuItemVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemVendasActionPerformed
         // TODO add your handling code here:
-         TelaVenda telaVenda = new TelaVenda();
+        TelaVenda telaVenda = new TelaVenda();
         telaVenda.setVisible(true);
     }//GEN-LAST:event_menuItemVendasActionPerformed
 

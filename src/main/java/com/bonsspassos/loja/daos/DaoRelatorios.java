@@ -54,10 +54,10 @@ public class DaoRelatorios {
     public List<RelatorioSintetico> relatorioSinteticoPorFiltro(Date inicio, Date fim, String filtro, String valor) {
         String sql = "SELECT vendas.id,clientes.nome,vendas.idCliente,vendas.dataVenda, vendas.valorVenda"
                 + " FROM vendas INNER JOIN clientes ON clientes.id=vendas.idCliente "
-                + "WHERE dataVenda BETWEEN ? AND ? AND " + " clientes."+ filtro+" LIKE ?";
+                + "WHERE dataVenda BETWEEN ? AND ? AND " + " clientes." + filtro + " LIKE ?";
         ResultSet rs = null;
-         valor = "%%" + valor + "%%";
-         filtro= "clientes."+filtro;
+        valor = "%%" + valor + "%%";
+        filtro = "clientes." + filtro;
         List<RelatorioSintetico> listaRelatorios = new ArrayList<>();
         try {
             Connection con = conexao.getConexao();
@@ -84,9 +84,8 @@ public class DaoRelatorios {
         }
         return listaRelatorios;
     }
-    
-    
-     public List<RelatorioAnalitico> relatorioAnalitico(int idVenda) {
+
+    public List<RelatorioAnalitico> relatorioAnalitico(int idVenda) {
         String sql = "SELECT itemvenda.idProduto,produtos.nome,itemvenda.valorUnitario,itemvenda.qtdProduto"
                 + " FROM itemvenda INNER JOIN produtos ON produtos.id=itemvenda.idProduto"
                 + " WHERE itemvenda.idVenda = ?";
@@ -97,13 +96,13 @@ public class DaoRelatorios {
             Connection con = conexao.getConexao();
             PreparedStatement preparedStatement = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, idVenda);
-            
+
             rs = preparedStatement.executeQuery();
             if (rs != null) {
-                while (rs.next()) {                     
+                while (rs.next()) {
                     listaRelatorios.add(new RelatorioAnalitico(rs.getString("nome"),
                             rs.getBigDecimal("valorUnitario"),
-                             rs.getInt("qtdProduto")));
+                            rs.getInt("qtdProduto")));
 
                 }
             }
