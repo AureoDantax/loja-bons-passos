@@ -304,6 +304,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                         DaoCliente cadastroCliente = new DaoCliente();
                         cadastroCliente.cadastrarCliente(cliente);
                         JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso!", "Cadastro concluido", JOptionPane.INFORMATION_MESSAGE);
+                        this.setVisible(false);
                     } catch (RuntimeException e) {
                         JOptionPane.showMessageDialog(rootPane, "Erro ao relizar Cadastro", "Erro ao cadastrar", ERROR_MESSAGE);
                     }

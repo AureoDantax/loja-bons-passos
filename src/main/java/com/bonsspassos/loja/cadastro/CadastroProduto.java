@@ -194,8 +194,8 @@ public class CadastroProduto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,6 +232,7 @@ public class CadastroProduto extends javax.swing.JFrame {
 
                         cadastroProduto.cadastrarProduto(produto);
                         JOptionPane.showMessageDialog(rootPane, "Cadastro Realizado com sucesso!", "Cadastro concluido", JOptionPane.INFORMATION_MESSAGE);
+                        this.setVisible(false);
                     } catch (RuntimeException e) {
                         JOptionPane.showMessageDialog(rootPane, "Erro ao realizar Cadastro", "Erro ao cadastrar", ERROR_MESSAGE);
                         System.out.println(e.getMessage());

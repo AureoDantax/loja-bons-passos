@@ -57,6 +57,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(102, 204, 255));
         setLocationByPlatform(true);
+        setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Bonspassos-logo.png"))); // NOI18N
 

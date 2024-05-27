@@ -25,7 +25,8 @@ public class DaoVenda {
         boolean retorno = false;
         String sql = "INSERT INTO vendas(idCliente,valorVenda,dataVenda) VALUES (?,?,?)";
         try {
-            try (Connection con = conexao.getConexao()) {
+            
+                Connection con = conexao.getConexao();
                 PreparedStatement preparedStatement = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
                 preparedStatement.setInt(1, venda.getIdComprador());
                 preparedStatement.setBigDecimal(2, venda.getTotal());
@@ -46,6 +47,7 @@ public class DaoVenda {
                             int linhas = preparedStatement2.executeUpdate();
                             if (linhas > 0) {
                                 retorno = true;
+                               
                             } else {
                                 throw new RuntimeException("Falha realizar venda");
                             }
@@ -53,9 +55,10 @@ public class DaoVenda {
                         }
 
                     }
+                     con.close();
                 }
             }
-        } catch (SQLException e) {
+         catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException();
         }

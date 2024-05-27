@@ -139,6 +139,7 @@
       <Color blue="ff" green="cc" red="66" type="rgb"/>
     </Property>
     <Property name="locationByPlatform" type="boolean" value="true"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>

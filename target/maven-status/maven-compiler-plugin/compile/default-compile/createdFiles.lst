@@ -32,6 +32,7 @@ com\bonsspassos\loja\home\TelaPrincipal.class
 com\bonsspassos\loja\consulta\ConsultaCliente$5.class
 com\bonsspassos\loja\daos\DaoVenda.class
 com\bonsspassos\loja\edicao\EditaProduto$6.class
+com\bonsspassos\loja\relatorios\TelaRelatorio$6.class
 com\bonsspassos\loja\vendas\TelaVenda$14.class
 com\bonsspassos\loja\vendas\TelaVenda$4.class
 com\bonsspassos\loja\vendas\TelaVenda.class
@@ -79,6 +80,7 @@ com\bonsspassos\loja\vendas\TelaVenda$9.class
 com\bonsspassos\loja\consulta\ConsultaProduto$6.class
 com\bonsspassos\loja\relatorios\TelaRelatorio.class
 com\bonsspassos\loja\edicao\EditaCliente.class
+com\bonsspassos\loja\model\RelatorioAnalitico.class
 com\bonsspassos\loja\vendas\TelaVenda$5.class
 com\bonsspassos\loja\edicao\EditaProduto.class
 com\bonsspassos\loja\vendas\TelaVenda$15.class
